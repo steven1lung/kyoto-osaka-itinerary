@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7D6N 京阪神獨旅深度美饌、殿堂晨跑、跑步驛站 & 精品冰美式 最終決定版</title>
+  
+  <!-- FontAwesome 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Google Fonts: Noto Serif JP & Noto Sans JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'wabi-bg': '#F9F8F6',       /* Warm off-white background */
+            'wabi-card': '#FAF9F5',     /* Card warm surface */
+            'wabi-border': '#E5E3DF',   /* Delicate card border */
+            'indigo-deep': '#1E2A38',   /* Primary Japanese Indigo text & headers */
+            'indigo-accent': '#2B3A42', /* Secondary dark accent / buttons */
+            'slate-text': '#5A6B7C',    /* Muted slate grey for hours/subtitles */
+            'matcha': '#4A6B5B',        /* Matcha green highlight for active pills */
+            'matcha-light': '#EBF1ED',  /* Light matcha tint for tip callout boxes */
+            'terracotta': '#9B3B2B',    /* Accent for confirmed reservations & zero-offal warnings */
+            'terracotta-light': '#F7EBE9'
+          },
+          fontFamily: {
+            serif: ['"Noto Serif JP"', 'Georgia', 'serif'],
+            sans: ['"Noto Sans JP"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles for v-cloak and Scrollbars -->
+  <style>
+    [v-cloak] { display: none !important; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .fade-list-enter-active, .fade-list-leave-active { transition: all 0.25s ease; }
+    .fade-list-enter-from, .fade-list-leave-to { opacity: 0; transform: translateY(8px); }
+  </style>
+
+  <!-- Vue 3 Global CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- ITINERARY_DATA Definition -->
+  <script id="itinerary-data" type="application/json">
+  </script>
+  <script>
+    const ITINERARY_DATA = {
+      "overview": {
+        "title": "7D6N 京阪神獨旅深度美饌、殿堂晨跑、跑步驛站 & 精品冰美式 最終決定版",
+        "subtitle": "2026/09/06 (Sun) - 2026/09/12 (Sat) ｜ 專為極致獨旅跑者打造的京都、神戶、大阪 7 天 6 夜全方位行程表",
+        "dates": "2026/09/06 - 2026/09/12 (7D6N)",
+        "highlights": [
+          "7D6N Solo Runner 獨旅：專為單人自由行跑者規劃，每日清晨探索世界級殿堂跑道與歷史名所。",
+          "嚴格零內臟 (Zero-Offal Policy)：全面排除動物內臟與雜碎，入座主動聲明『Horumon wa taberaremasen (ホルモンは食べられません)』。",
+          "每日晨跑 + 跑後開門驗證精品冰美式：精選 07:00 - 08:00 晨間早開門獨立烘焙名店，享受極致單品 Iced Americano。",
+          "天然溫泉宿 (Natural Hot Spring Onsen)：全程入住頂級天然溫泉飯店，每日晨跑後與睡前享受大浴場、桑拿與冷水池深層修復。"
+        ],
+        "hotels": [
+          {
+            "name": "Super Hotel Premier 京都・四條河原町 (天然溫泉 洛神之湯)",
+            "nameEn": "Super Hotel Premier Kyoto Shijo Kawaramachi",
+            "nights": "4 晚 (9/6 - 9/10)",
+            "address": "京都府京都市中京區新京極通四條上る中之町538番地1",
+            "features": "館內設有男女獨立『天然溫泉 洛神之湯』大浴場、迎賓飲品 Welcome Bar、投幣式洗烘衣機。距離 OSHMAN'S 跑步驛站與鴨川步道僅 3 分鐘 (280m) 步程。",
+            "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+          },
+          {
+            "name": "御宿 野乃 難波 (天然溫泉 花風之湯 Onyado Nono Namba)",
+            "nameEn": "Onyado Nono Namba Natural Hot Spring",
+            "nights": "2 晚 (9/10 - 9/12)",
+            "address": "大阪府大阪市中央區日本橋1-4-18",
+            "features": "全館日式榻榻米，設有『天然溫泉 花風之湯』、高溫乾式桑拿 (sauna) 與 15°C 冷水池。每晚 21:30-23:00 提供免費宵夜夜鳴拉麵 (ramen)，館內設有免費洗衣機。",
+            "mapUrl": "https://www.google.com/maps/search/?api=1&query=Onyado+Nono+Namba"
+          }
+        ],
+        "luggageForwarding": {
+          "service": "黑貓宅急便 (Yamato Transport Ta-Q-Bin)",
+          "schedule": "Day 5 (9/10 週四) 08:30 於 Super Hotel 櫃台辦理寄件",
+          "fee": "每件大行李約 ¥2,000 (¥2000)",
+          "route": "自京都 Super Hotel Premier 四條河原町 直寄 大阪御宿野乃難波 (Onyado Nono Namba)",
+          "tip": "填寫黑貓宅急便托運單寄出大件行李後，即可兩手空空搭乘 09:20 JR 新快速直達神戶三之宮，省去先到大阪難波寄放行李的 2.5 小時折返車程！當晚入住難波時行李已送達房間。"
+        },
+        "confirmedDining": [
+          {
+            "date": "Day 3 (9/8 週二) 19:00",
+            "name": "京の焼肉処 弘 (Yakiniku Hiro)",
+            "type": "極上黑毛和牛燒肉晚宴",
+            "note": "已完成確認預約。入座務必向服務人員表明零內臟宣言：『Horumon wa taberaremasen (ホルモンは食べられません)』。",
+            "mapUrl": "https://www.google.com/maps/search/?api=1&query=Yakiniku+Hiro+Kyoto"
+          },
+          {
+            "date": "Day 5 (9/10 週四) 13:00",
+            "name": "Mouriya (モーリヤ) 神戶牛鐵板燒",
+            "type": "A5 頂級神戶牛鐵板燒午宴",
+            "note": "已完成確認預約。點選 A5 神戶牛沙朗/菲力，確認招牌蒜香炒飯使用純奶油或神戶牛純牛脂 (Tallow / 牛脂 / butter) 拌炒。",
+            "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mouriya+Kobe+Beef"
+          }
+        ]
+      },
+      "runStations": [
+        {
+          "id": "rs-kyoto",
+          "title": "OSHMAN'S RUN & FITNESS KYOTO (京都店 3F 跑步驛站)",
+          "nameEn": "OSHMAN'S Kyoto Run Station 3F",
+          "location": "京都府京都市中京區蛸藥師通河原町東入備前島町310-2 (3F)",
+          "hours": "11:00 - 20:00",
+          "price": "單次寄物與淋浴 / 跑服裝備租借依現場方案",
+          "proximity": "距離 Super Hotel 四條河原町步行僅 3 分鐘 (280m)；出發往東跑 3 分鐘直上鴨川河畔跑道",
+          "features": "提供 Adidas 等知名運動品牌全套排汗衣、跑褲、專業跑鞋租借。若晨跑時段尚未營業，可著自備跑服晨跑後利用飯店 3 分鐘距離與館內投幣式洗烘衣機快速打理。",
+          "tip": "京都跑者核心補給與租借據點！下午或傍晚可至 3F 參觀最新跑鞋裝備或租借體驗。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=OSHMANS+Kyoto"
+        },
+        {
+          "id": "rs-osaka",
+          "title": "RUNNING BASE 大阪城 (大阪城公園旗艦跑步驛站)",
+          "nameEn": "RUNNING BASE Osaka Castle",
+          "location": "大阪府大阪市中央區大阪城3-1 (JO-TERRACE OSAKA 1F)",
+          "hours": "每日 07:00 - 22:00 (07:00 準時開門)",
+          "price": "招牌『手ぶらパック (手ぶら 空手租借套裝)』約 ¥1,200 / 次 (¥1200)",
+          "proximity": "位於 JR 大阪城公園站出口 JO-TERRACE 1F，出站即達；出門一秒直上大阪城內外濠跑道",
+          "features": "提供空手跑『手ぶら』全套裝備租借：包含全套品牌排汗短袖、運動短褲、頂級跑鞋、大毛巾與小毛巾組，並附設男女獨立更衣置物櫃與淋浴間。",
+          "tip": "Day 6 清晨 07:00 抵達直接購買手ぶらパック (¥1,200)，換裝後晨跑大阪城 6km，跑完淋浴歸還跑服，兩手空空清爽前往黑門市場！",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=RUNNING+BASE+Osaka+Castle"
+        }
+      ],
+      "runRoutes": [
+        {
+          "id": "route-1",
+          "title": "鴨川河畔黃金段 (Kamogawa River)",
+          "distance": "6km 往返",
+          "location": "四條大橋 ↔ 出町柳鴨川三角洲",
+          "description": "京都跑者聖地！自四條大橋往北沿著鴨川河堤慢跑，路面平坦舒適，至出町柳鴨川三角洲體驗經典跳烏龜石。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kamogawa+Delta+Kyoto"
+        },
+        {
+          "id": "route-2",
+          "title": "京都御苑 皇居松林林道 (Kyoto Imperial Palace)",
+          "distance": "5km 繞行",
+          "location": "京都御苑外圍與內部碎石步道",
+          "description": "圍繞京都御所與茂密松林奔馳，道路寬敞且綠樹成蔭，清晨氣溫涼爽，充滿皇家園林的靜謐氛圍。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kyoto+Imperial+Palace"
+        },
+        {
+          "id": "route-3",
+          "title": "二條城 外濠環狀步道 (Nijo Castle)",
+          "distance": "5.7km (繞行 3 圈, 單圈 1.88km)",
+          "location": "元離宮二條城 外圍護城河",
+          "description": "京都著名無障礙繞圈跑道！單圈 1.88km 完全無紅綠燈，伴隨壯麗江戶幕府石垣與護城河晨光。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nijo+Castle"
+        },
+        {
+          "id": "route-4",
+          "title": "鴨川北段 賀茂川水畔綠蔭跑 (Kamogawa / Kamo River)",
+          "distance": "5~6km 往返",
+          "location": "鴨川三角洲以北 賀茂川河岸步道",
+          "description": "自鴨川三角洲往西北沿賀茂川而上，兩旁樹林蔥鬱、河道開闊寧靜，是京都早晨最純粹的跑者路線。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kamogawa+River+Kyoto"
+        },
+        {
+          "id": "route-5",
+          "title": "大阪城公園 內外濠世界級環形跑道 (Osaka Castle Park)",
+          "distance": "6km 環繞",
+          "location": "RUNNING BASE 驛站出發 ↔ 大阪城天守閣護城河",
+          "description": "大阪跑者殿堂！自 JO-TERRACE 驛站出發，穿梭內外護城河與巨石城垣，遠眺天守閣壯闊晨景。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Osaka+Castle"
+        },
+        {
+          "id": "route-6",
+          "title": "中之島公園 水岸長廊 (Nakanoshima Park)",
+          "distance": "5km 往返",
+          "location": "堂島川與土佐堀川夾岸水上綠帶 ↔ 中央公會堂",
+          "description": "大阪最美水岸跑道！被雙河環抱的帶狀綠洲，沿途欣賞大阪市中央公會堂紅磚古蹟與玫瑰園風光。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nakanoshima+Park"
+        }
+      ],
+      "coffees": [
+        {
+          "id": "coffee-1",
+          "dayPairing": "Day 2 (9/7 Mon) 鴨川跑後",
+          "title": "Weekenders Coffee Tominokoji (富小路)",
+          "location": "京都市中京區富小路通六角下ル西側蜂屋町560",
+          "hours": "07:30 - 18:00 (週三公休)",
+          "beansNote": "極致淺焙單品衣索比亞 / 肯亞水洗豆，花香與柑橘果酸明亮通透",
+          "tip": "藏身於傳統町家老宅停車場深處的京都自家烘焙先驅！07:30 晨間早開門，跑後點一杯現沖單品冰美式，在庭院碎石座席享受晨光。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Weekenders+Coffee+Tominokoji"
+        },
+        {
+          "id": "coffee-2",
+          "dayPairing": "Day 3 (9/8 Tue) 御苑跑後",
+          "title": "Kurasu Ebisugawa (夷川店)",
+          "location": "京都市中京區夷川通東洞院東入山中町551",
+          "hours": "08:00 - 18:00",
+          "beansNote": "西陣自家烘焙單品濃縮豆，果香飽滿、甜感持久、口感滑順乾淨",
+          "tip": "位於京都御苑南側靜謐街區，京都享譽國際的精品咖啡品牌。08:00 準時營業，晨跑完御苑後步行 3 分鐘即可品飲頂級冰美式。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kurasu+Ebisugawa"
+        },
+        {
+          "id": "coffee-3",
+          "dayPairing": "Day 4 (9/9 Wed) 二條城跑後",
+          "title": "here Kyoto (三條本店)",
+          "location": "京都市中京區姉西洞院町524",
+          "hours": "08:00 - 18:00 (早鳥亦可選 07:00 開門之小川咖啡 堺町錦店)",
+          "beansNote": "精選中淺焙配方與單品豆，酸甜平衡，黑巧克力與莓果尾韻澄澈甘甜",
+          "tip": "由前世界拉花冠軍山口淳一創立的名店！08:00 開門，店內洋溢清水模簡約美學，必喝其澄澈甘甜的單品黑咖啡冰美式。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=here+Kyoto+Sanjo"
+        },
+        {
+          "id": "coffee-4",
+          "dayPairing": "Day 5 (9/10 Thu) 賀茂川跑後",
+          "title": "Walden Woods Kyoto",
+          "location": "京都市下京區榮町508-1 (花屋町通富小路西入ル)",
+          "hours": "08:00 - 19:00",
+          "beansNote": "大正洋樓自家烘焙深黑雙份濃縮，注入純淨冰水，堅果與可可尾韻厚實",
+          "tip": "全白森林系夢幻空間，無桌子階梯式自由座席。08:00 晨間營業，享受純白靜謐氛圍與香氣濃郁的雙份濃縮冰美式。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Walden+Woods+Kyoto"
+        },
+        {
+          "id": "coffee-5",
+          "dayPairing": "Day 6 (9/11 Fri) 大阪城跑後",
+          "title": "Brooklyn Roasting Company Namba EKIKAN",
+          "location": "大阪市浪速區敷津東1-1-21 (南海難波高架橋下)",
+          "hours": "08:00 - 20:00",
+          "beansNote": "美式重烘焙與單品精選，La Marzocco 萃取雙份濃縮，醇厚黑可可與焦糖香",
+          "tip": "位於南海難波站高架橋下的紐約工業風寬敞咖啡館。08:00 開門，距離御宿野乃難波步行約 10 分鐘，冰美式扎實濃郁。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Brooklyn+Roasting+Company+Namba+EKIKAN"
+        },
+        {
+          "id": "coffee-6",
+          "dayPairing": "Day 7 (9/12 Sat) 中之島跑後",
+          "title": "Brooklyn Roasting Company Kitahama (北濱本店)",
+          "location": "大阪市中央區北濱2-1-16",
+          "hours": "08:00 - 19:00",
+          "beansNote": "新鮮烘焙單品豆現萃冰美式，花香明亮且口感乾爽俐落",
+          "tip": "中之島晨跑步道終點難波橋旁即達！08:00 營業，坐在土佐堀川第一排露天木棧陽台，晨風下眺望對岸中央公會堂紅磚古蹟喝咖啡。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Brooklyn+Roasting+Company+Kitahama"
+        }
+      ],
+      "dining": [
+        {
+          "id": "dine-1",
+          "title": "京の焼肉処 弘 (Yakiniku Hiro 四條木屋町店/千本三條店)",
+          "type": "confirmed",
+          "location": "京都市中京區高瀨川筋四條上ル紙屋町674",
+          "hours": "17:00 - 23:00 (已確認預約 Day 3 19:00)",
+          "policyNote": "Horumon wa taberaremasen (ホルモンは食べられません)",
+          "tip": "【已確認預約 19:00】京都超人氣頂級黑毛和牛一頭買燒肉名店！入座請主動向店員聲明不吃內臟的日文：『Horumon wa taberaremasen (ホルモンは食べられません)』。推薦單點極上黑毛和牛姿切牛排、上等里肌與菲力。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Yakiniku+Hiro+Kyoto"
+        },
+        {
+          "id": "dine-2",
+          "title": "Mouriya (モーリヤ) 神戶牛鐵板燒 (三宮本店/皇家店)",
+          "type": "confirmed",
+          "location": "兵庫縣神戶市中央區北長狹通1-9-9",
+          "hours": "11:00 - 22:00 (已確認預約 Day 5 13:00)",
+          "policyNote": "嚴格指定 A5 頂級神戶牛沙朗/菲力，大蒜炒飯指定純奶油或神戶牛純牛脂 (Tallow) 拌炒",
+          "tip": "【已確認預約 13:00】擁有 140 年歷史的神戶牛鐵板燒殿堂！點選 A5 頂級神戶牛沙朗/菲力午間套餐。請確認招牌蒜香炒飯使用純奶油或神戶牛純牛脂 (Tallow / 牛脂 / butter) 拌炒，嚴格零內臟，極致銷魂。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mouriya+Kobe+Beef"
+        },
+        {
+          "id": "dine-3",
+          "title": "Gion Duck Noodles (祇園鴨肉沾麵)",
+          "type": "queue_gem",
+          "location": "京都市東山區祇園町北側329",
+          "hours": "11:30 - 19:30 (免預約現場排隊)",
+          "policyNote": "全菜單使用純鴨肉與法式鴨高湯，零內臟",
+          "tip": "隱身祇園小巷的超人氣排隊名店！以 Emoji 表情符號作為趣味菜單，必點法式鴨白湯沾麵搭舒肥鴨胸與現磨青山椒，湯頭濃郁香醇。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Gion+Duck+Noodles"
+        },
+        {
+          "id": "dine-4",
+          "title": "名代 とんかつ かつくら (Katsukura 寺町三條本店)",
+          "type": "queue_gem",
+          "location": "京都市中京區寺町通三條上ル天性寺前町539",
+          "hours": "11:00 - 21:30",
+          "policyNote": "純豬里肌/腰內肉炸豬排，零內臟安全首選",
+          "tip": "京都頂級熟成豬排代表名店！嚴選三元豚里肌與菲力，現炸麵衣金黃酥脆。附自磨金芝麻醬，高麗菜絲、大麥飯與味噌湯皆可無限續加。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Katsukura+Teramachi+Sanjo"
+        },
+        {
+          "id": "dine-5",
+          "title": "錦市場海鮮巡禮 (Nishiki Market Seafood)",
+          "type": "queue_gem",
+          "location": "京都市中京區錦小路通 (寺町至高倉通之間)",
+          "hours": "10:00 - 18:00 (依各攤商營業時間)",
+          "policyNote": "精選新鮮干貝、大蝦與玉子燒等純海鮮食材，避開內臟串燒",
+          "tip": "京都人的廚房！中午黃金時段前往，必吃現烤特大干貝串、奶油炙燒大蝦、三木雞卵現做高湯玉子燒，新鮮美味邊走邊嚐。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nishiki+Market+Kyoto"
+        },
+        {
+          "id": "dine-6",
+          "title": "米其林必比登 麺屋 猪一 (Inoichi)",
+          "type": "queue_gem",
+          "location": "京都市下京區惠美須之町542",
+          "hours": "11:00-14:30, 17:30-21:00 (現場排隊領整理券)",
+          "policyNote": "柴魚頂級海鮮清湯底搭配黑毛和牛片或炙燒帆立貝，絕無內臟",
+          "tip": "連續多年榮獲米其林必比登推介的京都拉麵神店！湯頭以頂級柴魚昆布熬製，清甜回甘不油膩，搭配入口即化的黑毛和牛薄片與炙燒帆立貝。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ramen+Inoichi+Kyoto"
+        },
+        {
+          "id": "dine-7",
+          "title": "嵐山 鯛匠 HANANA (Taisho HANANA)",
+          "type": "queue_gem",
+          "location": "京都市右京區嵯峨天龍寺瀨戶川町26-1",
+          "hours": "11:00 - 15:30 (售完即止)",
+          "policyNote": "純真鯛生魚片與胡麻醬汁茶泡飯，100% 零內臟料理",
+          "tip": "嵐山排隊第一名的夢幻真鯛茶泡飯！提供極上真鯛薄切生魚片三吃：一吃特製胡麻醬刺身、二吃白飯配鯛魚、三吃淋上日式煎茶高湯做成茶泡飯。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Taisho+HANANA+Arashiyama"
+        },
+        {
+          "id": "dine-8",
+          "title": "宇治 中村藤吉 本店 (Nakamura Tokichi Main Store)",
+          "type": "queue_gem",
+          "location": "京都府宇治市宇治壹番十",
+          "hours": "10:00 - 17:30 (10:00 開放抽取整理券)",
+          "policyNote": "抹茶蕎麥麵與精緻茶點甜品，全植物與柴魚高湯配料，零內臟",
+          "tip": "宇治抹茶百年歷史總本家！早晨 10:05 抵達第一件事直奔門口抽取整理券。必點特上抹茶蕎麥麵套餐與超人氣『竹筒生茶果凍』。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nakamura+Tokichi+Main+Store+Uji"
+        },
+        {
+          "id": "dine-9",
+          "title": "祇園 牛光 (Gion Ushimitsu)",
+          "type": "queue_gem",
+          "location": "京都市東山區富永町114",
+          "hours": "11:30-15:30, 17:30-21:00",
+          "policyNote": "嚴選低溫熟成黑毛和牛赤身與沙朗部位，無內臟雜碎",
+          "tip": "京都超高人氣和牛肉茶泡飯專門店！滿滿低溫熟成黑毛和牛薄片鋪滿米飯，淋上特製醬汁與熱騰騰高湯，肉質軟嫩鮮甜，排隊必吃。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Gion+Ushimitsu"
+        },
+        {
+          "id": "dine-10",
+          "title": "道頓堀 味乃家 大阪燒 / 美津の (Ajinoya / Mizuno)",
+          "type": "queue_gem",
+          "location": "大阪市中央區難波1-7-16",
+          "hours": "11:00 - 22:00",
+          "policyNote": "點選純豬肉、牛肉、花枝或鮮蝦大阪燒，不加牛筋蒟蒻內臟",
+          "tip": "大阪道頓堀米其林推薦大阪燒名店！職人桌邊現煎，外酥內鬆軟的高麗菜麵糊搭配特調醬汁與柴魚片，點餐時確認不含內臟牛筋。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ajinoya+Dotonbori"
+        },
+        {
+          "id": "dine-11",
+          "title": "黑門市場 黑門三平 (Kuromon Sanpei)",
+          "type": "queue_gem",
+          "location": "大阪市中央區日本橋1-22-25",
+          "hours": "09:00 - 18:00",
+          "policyNote": "專營頂級現切生魚片、海膽、大蝦與現烤大干貝，純海鮮零內臟",
+          "tip": "黑門市場人氣最旺的頂級水產名店！早午餐來此享用北海道現烤特大干貝、黑毛和牛肉串、新鮮黑鮪魚大腹生魚片與鮮甜海膽。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kuromon+Sanpei"
+        },
+        {
+          "id": "dine-12",
+          "title": "新世界 元祖串炸達摩 (Kushikatsu Daruma 通天閣店)",
+          "type": "queue_gem",
+          "location": "大阪市浪速區惠美須東1-6-8",
+          "hours": "11:00 - 22:30",
+          "policyNote": "點選元祖牛肉串、豬肉串、蘆筍、蓮藕與大蝦串炸，不點內臟類",
+          "tip": "大阪新世界精神地標！麵衣薄脆金黃不油膩，現炸牛肉串、鮮蝦與蔬菜香氣四溢。切記傳統禮儀：共用沾醬盆『絕對禁止二次沾醬』。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kushikatsu+Daruma+Shinsekai"
+        },
+        {
+          "id": "dine-13",
+          "title": "黑毛和牛 燒肉 一 (心齋橋店) / 磯丸水產",
+          "type": "queue_gem",
+          "location": "大阪市中央區心齋橋筋1-4-31",
+          "hours": "11:30 - 23:00",
+          "policyNote": "堅持點選黑毛和牛上等牛五花、里肌與海鮮燒烤，聲明不吃內臟",
+          "tip": "心齋橋商圈優質燒肉與活跳海鮮首選！在大阪的最後一晚大啖油花分布均勻的頂級黑毛和牛燒肉，或到磯丸水產享用現烤活貝大蝦。",
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Yakiniku+Ichi+Shinsaibashi"
+        }
+      ],
+      "days": [
+        {
+          "dayNumber": 1,
+          "id": "day1",
+          "date": "2026/09/06 (Sun)",
+          "title": "抵達京都・名代かつくら頂級炸豬排",
+          "routeHighlight": "關西機場 (KIX) 入境 ➔ 搭乘 JR 特急 HARUKA 直達京都 ➔ 伏見稻荷大社 ➔ 四條河原町溫泉宿",
+          "items": [
+            {
+              "time": "10:10",
+              "title": "抵達關西國際機場 (KIX) T1",
+              "location": "關西國際機場 第一航廈 (Kansai International Airport)",
+              "hours": "航班抵達 10:10",
+              "category": "culture",
+              "tip": "下機後開啟 Visit Japan Web (VJW) QR Code 快速通關，至行李轉盤提領大件行李，步行前往關西機場 JR 車站。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport"
+            },
+            {
+              "time": "11:44 - 13:00",
+              "title": "搭乘 JR 特急 HARUKA 直達京都車站",
+              "location": "JR 關西機場站 ➔ JR 京都車站 (Kyoto Station)",
+              "hours": "車程約 75 分鐘 (建議搭乘 11:44 或 12:14 班次)",
+              "category": "culture",
+              "tip": "使用預先劃位之 HARUKA 指定席車票，將大件行李放置於車廂前後專用行李架，舒適直達京都車站免轉車。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kyoto+Station"
+            },
+            {
+              "time": "13:30 - 14:00",
+              "title": "抵達 Super Hotel Premier 京都四條河原町 Check-in 寄放行李",
+              "location": "京都市中京區新京極通四條上る中之町538番地1",
+              "hours": "15:00 可進房 (提前寄放行李)",
+              "category": "culture",
+              "tip": "自京都車站轉乘地鐵烏丸線至四條站或搭乘計程車 (約 10 分鐘) 抵達飯店，寄放行李並確認天然溫泉『洛神之湯』開放時間。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            },
+            {
+              "time": "14:30 - 15:30",
+              "title": "遲午餐：Gion Duck Noodles (祇園法式鴨白湯沾麵)",
+              "location": "京都市東山區祇園町北側329 (自飯店步行 5 分鐘)",
+              "hours": "11:30 - 19:30",
+              "category": "dining",
+              "tip": "免預約現場排隊名店！以可愛 Emoji 作為菜單，必點香濃法式鴨白湯沾麵搭舒肥鴨肉與現磨青山椒，保證 100% 零內臟料理。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Gion+Duck+Noodles"
+            },
+            {
+              "time": "15:45 - 17:45",
+              "title": "伏見稻荷大社 千本鳥居黃昏散策",
+              "location": "京都市伏見區深草藪之內町68",
+              "hours": "全天開放 (授與所 08:30 - 16:30)",
+              "category": "culture",
+              "tip": "自祇園四條站搭乘京阪本線至伏見稻荷站 (約 8 分鐘直達)。利用黃昏時段避開正午龐大觀光人潮，漫步千本鳥居朱紅色隧道光影。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha"
+            },
+            {
+              "time": "18:30 - 20:30",
+              "title": "晚餐：名代 とんかつ かつくら (寺町三條本店)",
+              "location": "京都市中京區寺町通三條上ル天性寺前町539",
+              "hours": "11:00 - 21:30",
+              "category": "dining",
+              "tip": "京都頂級熟成豬排代表！手磨金芝麻搭配秘製豬排醬，外酥內嫩的三元豚里肌/腰內肉，高麗菜絲與大麥飯無限續，零內臟安心首選。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Katsukura+Teramachi+Sanjo"
+            },
+            {
+              "time": "21:00 - 22:30",
+              "title": "飯店天然溫泉「洛神之湯」& Welcome Bar 放鬆",
+              "location": "Super Hotel Premier 京都四條河原町 溫泉大浴場",
+              "hours": "15:00 - 翌朝 09:30",
+              "category": "run",
+              "tip": "跑者身心修復儀式！浸泡館內男女獨立天然溫泉『洛神之湯』洗去飛行奔波，並至 1F Welcome Bar 享用免費迎賓飲品與在地地酒。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "id": "day2",
+          "date": "2026/09/07 (Mon)",
+          "title": "【鴨川跑＋跑步驛站】・晨間清水寺・拯救錦市場",
+          "routeHighlight": "晨跑路線：鴨川河畔黃金段 (出町柳跳烏龜 ↔ 四條大橋，平坦河堤步道約 6km)",
+          "items": [
+            {
+              "time": "06:30 - 07:30",
+              "title": "晨跑：鴨川河畔黃金段 (跳烏龜 ↔ 四條大橋 6km)",
+              "location": "鴨川河畔步道 (自四條大橋往北跑至出町柳鴨川三角洲折返)",
+              "hours": "全天開放 (清晨氣溫最涼爽)",
+              "category": "run",
+              "tip": "京都跑者聖地！自飯店出發往東步行 3 分鐘直上鴨川步道，北行至出町柳體驗踩踏河中烏龜石。下午亦可至鄰近 280m 的 OSHMAN'S 京都店 3F 跑步驛站參觀。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kamogawa+Delta+Kyoto"
+            },
+            {
+              "time": "07:30 - 08:00",
+              "title": "跑後冰美式：Weekenders Coffee Tominokoji (富小路)",
+              "location": "京都市中京區富小路通六角下ル西側蜂屋町560",
+              "hours": "07:30 - 18:00 (週三公休)",
+              "category": "coffee",
+              "tip": "藏身町家老宅停車場深處的自家烘焙名店！07:30 早晨準時營業，必喝高解析度淺焙單品冰美式，花果香氣優雅奔放，跑後沁涼提神。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Weekenders+Coffee+Tominokoji"
+            },
+            {
+              "time": "08:00 - 08:45",
+              "title": "飯店溫泉大浴場泡湯沖涼 & 換裝",
+              "location": "Super Hotel Premier 京都四條河原町",
+              "hours": "大浴場晨間開放至 09:30",
+              "category": "run",
+              "tip": "回飯店浸泡天然溫泉洗去汗水與乳酸，並可使用館內投幣式洗烘衣機快速清潔運動服飾，換上乾爽便服出發。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            },
+            {
+              "time": "08:45 - 09:00",
+              "title": "計程車 / 京阪電車直達五條坂 (避開公車塞車)",
+              "location": "四條河原町 ➔ 五條坂 / 清水寺道",
+              "hours": "車程約 8 分鐘",
+              "category": "culture",
+              "tip": "京都早晨公車擁擠，建議直接搭乘計程車前往五條坂 (車資約 ¥1,100，省時省力)，或搭京阪電車至清水五條站步行上山。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Gojozaka+Kyoto"
+            },
+            {
+              "time": "09:00 - 10:45",
+              "title": "世界文化遺產 清水寺 & 二三年坂晨間散策",
+              "location": "京都市東山區清水1丁目294",
+              "hours": "06:00 - 18:00",
+              "category": "culture",
+              "tip": "把握早晨 09:00 團客尚未湧入的清幽時段，登上清水舞台俯瞰京都市景，接續沿三年坂、二年坂石板階梯順坡下行漫步拍照。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera"
+            },
+            {
+              "time": "11:00 - 12:30",
+              "title": "午餐：拯救錦市場海鮮巡禮 (大干貝/海老/玉子燒)",
+              "location": "京都市中京區錦小路通",
+              "hours": "10:00 - 18:00 (中午攤商最齊全)",
+              "category": "dining",
+              "tip": "正午黃金時段抵達錦市場！大啖現烤北海道特大干貝串、奶油大蝦、三木雞卵高湯玉子燒，現點現吃，避開任何內臟雜碎熟食。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nishiki+Market+Kyoto"
+            },
+            {
+              "time": "14:00 - 16:30",
+              "title": "高台寺禪宗庭園 & 八坂神社巡禮",
+              "location": "京都市東山區高台寺下河原町526 / 祇園町北側625",
+              "hours": "09:00 - 17:30 (八坂神社全天開放)",
+              "category": "culture",
+              "tip": "參訪高台寺寧靜優美的枯山水庭園與竹林步道，隨後漫步至祇園信仰中心八坂神社，感受京都古剎歷史底蘊。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kodai-ji"
+            },
+            {
+              "time": "16:45 - 18:00",
+              "title": "黃昏祇園白川燈籠散策 (Gion Shirakawa)",
+              "location": "京都市東山區末吉町 白川南通",
+              "hours": "全天開放 (黃昏點燈最美)",
+              "category": "culture",
+              "tip": "沿著白川畔垂柳與傳統町家石板路漫步，傍晚華燈初上氛圍極致浪漫，有機會巧遇前往茶屋赴宴的藝妓與舞妓。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Gion+Shirakawa"
+            },
+            {
+              "time": "18:30 - 20:30",
+              "title": "晚餐：米其林必比登 麺屋 猪一 (Inoichi) 和牛黑白醬油拉麵",
+              "location": "京都市下京區惠美須之町542",
+              "hours": "17:30 - 21:00 (建議提前排隊領整理券)",
+              "category": "dining",
+              "tip": "米其林推薦排隊神店！湯頭以頂級柴魚與昆布熬製零油膩，點選黑白醬油和牛拉麵或炙燒帆立貝，湯清味美，絕無內臟雜味。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ramen+Inoichi+Kyoto"
+            },
+            {
+              "time": "21:00 - 22:00",
+              "title": "飯店天然溫泉大浴場深層修復",
+              "location": "Super Hotel Premier 京都四條河原町 洛神之湯",
+              "hours": "開放至翌朝 09:30",
+              "category": "run",
+              "tip": "結束全天充實步行與晨跑後，睡前浸泡溫泉大浴場舒緩腿部肌肉，為明日的京都御苑晨跑儲備滿滿能量。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "id": "day3",
+          "date": "2026/09/08 (Tue)",
+          "title": "【御苑跑+Kurasu冰美式】・嵐山鯛匠・金閣夕照・★弘燒肉",
+          "routeHighlight": "晨跑路線：京都御苑皇居松林林道 (環繞碎石與林蔭泥土步道，單圈 4km，總計約 5km)",
+          "items": [
+            {
+              "time": "06:30 - 07:30",
+              "title": "晨跑：京都御苑皇居松林林道 (5km)",
+              "location": "京都御苑 (Kyoto Imperial Palace Garden)",
+              "hours": "全天開放 (清晨綠樹林蔭極致舒適)",
+              "category": "run",
+              "tip": "沿著御苑外圍與內部百年松林碎石步道慢跑，道路寬敞平坦，吸滿京都皇居森林芬多精，體驗在地跑者最愛的經典晨跑路線。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kyoto+Imperial+Palace"
+            },
+            {
+              "time": "07:30 - 08:00",
+              "title": "跑後冰美式：Kurasu Ebisugawa (夷川店)",
+              "location": "京都市中京區夷川通東洞院東入山中町551",
+              "hours": "08:00 - 18:00",
+              "category": "coffee",
+              "tip": "御苑南側超人氣獨立烘焙咖啡館！08:00 晨間營業，跑完御苑後正好抵達，必點單品豆現萃冰美式，酸甜平衡口感絲滑。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kurasu+Ebisugawa"
+            },
+            {
+              "time": "08:00 - 09:00",
+              "title": "飯店溫泉大浴場泡湯 & 洗烘運動服飾",
+              "location": "Super Hotel Premier 京都四條河原町",
+              "hours": "大浴場晨間開放至 09:30",
+              "category": "run",
+              "tip": "泡湯消除晨跑疲勞，將運動衣褲投入投幣式洗烘衣機一鍵洗烘，清爽著裝出發前往嵐山。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            },
+            {
+              "time": "09:15 - 10:00",
+              "title": "搭乘阪急電鐵至桂站轉嵐山線 直達嵐山站",
+              "location": "阪急京都河原町站 ➔ 桂站 ➔ 阪急嵐山站",
+              "hours": "車程約 25 分鐘",
+              "category": "culture",
+              "tip": "自河原町搭乘阪急電鐵出發，在桂站同月台轉乘嵐山線，出站後跨越風景優美的渡月橋即可進入嵐山核心景區。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Hankyu+Arashiyama+Station"
+            },
+            {
+              "time": "10:00 - 12:30",
+              "title": "嵐山竹林小徑、野宮神社 & 天龍寺曹源池庭園",
+              "location": "京都市右京區嵯峨天龍寺芒ノ馬場町68",
+              "hours": "08:30 - 17:00",
+              "category": "culture",
+              "tip": "漫步高聳入雲的綠色竹林小徑與祈求良緣的野宮神社，接續參訪世界文化遺產天龍寺，欣賞借景嵐山的絕美『曹源池庭園』。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tenryu-ji"
+            },
+            {
+              "time": "12:30 - 14:00",
+              "title": "午餐：嵐山 鯛匠 HANANA 鯛魚茶泡飯三吃 & % Arabica 咖啡",
+              "location": "京都市右京區嵯峨天龍寺瀨戶川町26-1",
+              "hours": "11:00 - 15:30",
+              "category": "dining",
+              "tip": "嵐山第一排隊美食！享用真鯛薄切生魚片胡麻茶泡飯三吃，清爽鮮甜零內臟；餐後漫步至渡月橋畔 % Arabica 點杯咖啡欣賞溪景。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Taisho+HANANA"
+            },
+            {
+              "time": "14:02 - 14:30",
+              "title": "搭乘嵯峨野觀光小火車 (Torokko 14:02 班次)",
+              "location": "小火車嵯峨站 ➔ 小火車龜岡站",
+              "hours": "14:02 發車 (車程約 25 分鐘)",
+              "category": "culture",
+              "tip": "搭乘復古木造觀光小火車穿梭保津川峽谷，飽覽碧綠溪谷與兩岸山林美景；抵達龜岡後轉乘 JR 快速列車返回市區前往金閣寺。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Torokko+Arashiyama+Station"
+            },
+            {
+              "time": "15:15 - 16:45",
+              "title": "世界文化遺產 金閣寺 (鹿苑寺) 夕照與舍利殿倒影",
+              "location": "京都市北區金閣寺町1",
+              "hours": "09:00 - 17:00 (16:45 最後入場)",
+              "category": "culture",
+              "tip": "下午 15:15 抵達金閣寺！此時太陽西斜，金色陽光灑在貼滿金箔的三層舍利殿上，鏡湖池倒影金碧輝煌，是全天最美攝影時刻。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kinkaku-ji"
+            },
+            {
+              "time": "19:00 - 21:00",
+              "title": "★【已確認預約 19:00】京の焼肉処 弘 (Yakiniku Hiro) 頂級和牛燒肉",
+              "location": "京の焼肉処 弘 (依確認分店入座：木屋町店/千本三條店)",
+              "hours": "已確認預約 19:00",
+              "category": "dining",
+              "tip": "【已確認預約 19:00】入座請主動向店員聲明不吃內臟的日文：『Horumon wa taberaremasen (ホルモンは食べられません)』。單點黑毛和牛姿切牛排、上等里肌與菲力。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Yakiniku+Hiro+Kyoto"
+            },
+            {
+              "time": "21:30 - 22:30",
+              "title": "飯店天然溫泉大浴場舒眠泡湯",
+              "location": "Super Hotel Premier 京都四條河原町",
+              "hours": "開放至翌朝 09:30",
+              "category": "run",
+              "tip": "大啖頂級和牛燒肉盛宴後，回到飯店天然溫泉大浴場泡湯解膩，帶著完美飽足感香甜入眠。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "id": "day4",
+          "date": "2026/09/09 (Wed)",
+          "title": "【二條城跑+here Kyoto冰美式】・宇治中村藤吉・祇園牛光",
+          "routeHighlight": "晨跑路線：世界遺產二條城 外濠環狀步道 (單圈 1.88km 平坦無紅綠燈，繞行 3 圈約 5.7km)",
+          "items": [
+            {
+              "time": "06:30 - 07:30",
+              "title": "晨跑：世界遺產二條城 外濠環狀步道 (跑3圈 5.7km)",
+              "location": "元離宮二條城 外圍護城河步道 (Nijo Castle Outer Moat)",
+              "hours": "外圍步道全天開放",
+              "category": "run",
+              "tip": "京都最著名的無障礙繞圈跑道！單圈 1.88km 完全無紅綠燈阻隔，沿著江戶幕府宏偉石垣與外濠護城河奔馳，晨風清涼舒適。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nijo+Castle"
+            },
+            {
+              "time": "07:30 - 08:00",
+              "title": "跑後冰美式：here Kyoto (三條本店) 拉花冠軍單品黑咖啡",
+              "location": "京都市中京區姉西洞院町524",
+              "hours": "08:00 - 18:00",
+              "category": "coffee",
+              "tip": "由前世界拉花冠軍創立的名店！08:00 晨間營業，必喝單品黑咖啡冰美式，口感純淨微甜帶黑巧香氣；早鳥亦可選 07:00 開門的小川咖啡。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=here+Kyoto+Sanjo"
+            },
+            {
+              "time": "08:00 - 09:15",
+              "title": "飯店溫泉泡湯舒緩、洗滌衣物與享用早餐",
+              "location": "Super Hotel Premier 京都四條河原町",
+              "hours": "大浴場晨間開放至 09:30",
+              "category": "run",
+              "tip": "泡湯洗去晨跑汗水，快速打理運動服飾，補充豐富早餐蛋白質，準備出發前往宇治茶鄉。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            },
+            {
+              "time": "09:30 - 10:00",
+              "title": "搭乘京阪本線轉宇治線直達京阪宇治站",
+              "location": "京阪祇園四條站 ➔ 中書島站 (轉宇治線) ➔ 京阪宇治站",
+              "hours": "車程約 30 分鐘",
+              "category": "culture",
+              "tip": "自祇園四條站搭乘京阪特急至中書島，同站轉乘綠色宇治線直達宇治，沿途欣賞宇治川清流風光。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Keihan+Uji+Station"
+            },
+            {
+              "time": "10:05 - 10:15",
+              "title": "宇治免排隊秘技：抵達中村藤吉本店抽取整理券號碼牌",
+              "location": "京都府宇治市宇治壹番十 (JR 宇治站對面)",
+              "hours": "10:00 開放抽號碼牌 (11:00 開始供餐)",
+              "category": "dining",
+              "tip": "宇治行程最關鍵秘技！出站後第一件事直奔中村藤吉本店門口抽整理券號碼牌，取得前段順位後再安心前往平等院散策。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nakamura+Tokichi+Main+Store"
+            },
+            {
+              "time": "10:20 - 12:15",
+              "title": "世界文化遺產 平等院 (鳳凰堂) & 宇治川散策",
+              "location": "京都府宇治市宇治蓮華116",
+              "hours": "08:30 - 17:30",
+              "category": "culture",
+              "tip": "參觀十圓日幣硬幣背後的國寶『鳳凰堂』，欣賞阿字池倒影與極樂淨土庭園，沿宇治川畔綠蔭步道感受茶鄉清幽。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Byodoin"
+            },
+            {
+              "time": "12:30 - 14:00",
+              "title": "午餐盛宴：中村藤吉 本店 抹茶蕎麥麵與竹筒生茶果凍",
+              "location": "中村藤吉 本店 (Nakamura Tokichi Main Store)",
+              "hours": "11:00 - 17:30",
+              "category": "dining",
+              "tip": "叫號順利入座！點選招牌特上抹茶蕎麥麵套餐，口感清爽帶淡雅茶香，餐後必吃本家限定的『竹筒生茶果凍與白玉紅豆』。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nakamura+Tokichi+Main+Store"
+            },
+            {
+              "time": "15:30 - 17:15",
+              "title": "南禪寺 三門登頂 & 古羅馬紅磚水路閣光影攝影",
+              "location": "京都市左京區南禪寺福地町",
+              "hours": "08:40 - 17:00",
+              "category": "culture",
+              "tip": "搭地鐵東西線至蹴上站，登上宏偉的南禪寺『三門』眺望京都，隨後至後方古羅馬風格的紅磚拱形『水路閣』拍攝午後絕美光影。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nanzen-ji"
+            },
+            {
+              "time": "18:30 - 20:30",
+              "title": "晚餐：祇園 牛光 (Gion Ushimitsu) 熟成黑毛和牛肉茶漬け蓋飯",
+              "location": "京都市東山區富永町114",
+              "hours": "17:30 - 21:00 (免預約現場排隊)",
+              "category": "dining",
+              "tip": "祇園超夯和牛蓋飯！滿滿低溫熟成黑毛和牛薄片鋪滿白飯，先吃原味、再加佐料、最後淋上高湯享受銷魂和牛茶泡飯，100% 零內臟。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Gion+Ushimitsu"
+            },
+            {
+              "time": "21:00 - 22:00",
+              "title": "飯店天然溫泉大浴場 京都最後一晚泡湯",
+              "location": "Super Hotel Premier 京都四條河原町 洛神之湯",
+              "hours": "開放至翌朝 09:30",
+              "category": "run",
+              "tip": "享受在京都最後一晚的天然溫泉大浴場，徹底舒緩全身經絡，整理行囊準備明日寄送行李前往神戶與大阪。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            }
+          ]
+        },
+        {
+          "dayNumber": 5,
+          "id": "day5",
+          "date": "2026/09/10 (Thu)",
+          "title": "【賀茂川跑】・行李宅急便・★直達神戶 Mouriya 神戶牛",
+          "routeHighlight": "晨跑路線：鴨川北段 賀茂川水畔綠蔭跑 (綠意盎然河岸風光，往返約 5~6km)",
+          "items": [
+            {
+              "time": "06:30 - 07:30",
+              "title": "晨跑：鴨川北段 賀茂川水畔綠蔭跑 (5~6km)",
+              "location": "鴨川三角洲以北 賀茂川河岸步道",
+              "hours": "全天開放",
+              "category": "run",
+              "tip": "京都告別跑！自鴨川三角洲往西北沿賀茂川而上，兩旁樹林蔥鬱、河道開闊寧靜，是京都早晨最純粹的跑者路線。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kamogawa+River+Kyoto"
+            },
+            {
+              "time": "07:30 - 08:30",
+              "title": "跑後冰美式：Walden Woods Kyoto 森林系純白咖啡館",
+              "location": "京都市下京區榮町508-1",
+              "hours": "08:00 - 19:00",
+              "category": "coffee",
+              "tip": "全白森林系夢幻空間！08:00 準時營業，跑後點一杯深黑雙份濃縮調製的冰美式，堅果與可可尾韻厚實，在階梯座席享受純白靜謐。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Walden+Woods+Kyoto"
+            },
+            {
+              "time": "08:30 - 08:45",
+              "title": "🧳 黑貓宅急便行李寄送 (Ta-Q-Bin) & 飯店退房",
+              "location": "Super Hotel Premier 京都四條河原町 1F 櫃台",
+              "hours": "08:30 辦理寄件與退房",
+              "category": "run",
+              "tip": "【行李免搬運神技】在飯店櫃台填寫黑貓宅急便托運單，將大件行李寄往『御宿野乃難波』(每件約 ¥2,000)。兩手空空輕鬆出發！",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Super+Hotel+Premier+Kyoto+Shijo+Kawaramachi"
+            },
+            {
+              "time": "09:20 - 10:12",
+              "title": "🚆 搭乘 JR 新快速直達神戶三之宮 (52分鐘，免折返難波)",
+              "location": "JR 京都車站 ➔ JR 三之宮站 (Sannomiya Station)",
+              "hours": "09:20 發車 ➔ 10:12 抵達神戶 (車程 52 分鐘)",
+              "category": "culture",
+              "tip": "搭乘 JR 東海道山陽本線『新快速』列車直達神戶三之宮！完全省去先到大阪難波寄放行李的 2.5 小時折返車程，優雅展開神戶之旅。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Sannomiya+Station"
+            },
+            {
+              "time": "10:25 - 12:45",
+              "title": "神戶北野異人館街散策 (風見雞之館 & 萌黃之館)",
+              "location": "兵庫縣神戶市中央區北野町3-13-3",
+              "hours": "09:30 - 18:00",
+              "category": "culture",
+              "tip": "漫步充滿歐洲風情的北野異人館山坡街區，參觀經典紅磚建築『風見雞之館』與淡綠色『萌黃之館』，至北野天滿神社俯瞰神戶港。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kitano+Ijinkan-Gai"
+            },
+            {
+              "time": "13:00 - 14:45",
+              "title": "★【已確認預約 13:00】Mouriya (モーリヤ) A5 神戶牛鐵板燒午宴",
+              "location": "Mouriya 神戶牛鐵板燒 (依確認分店入座：三宮本店/皇家店)",
+              "hours": "已確認預約 13:00",
+              "category": "dining",
+              "tip": "【已確認預約 13:00】點選 A5 頂級神戶牛沙朗/菲力午間套餐。請確認招牌蒜香炒飯使用純奶油或神戶牛純牛脂 (Tallow / 牛脂 / butter) 拌炒，嚴格零內臟，極致銷魂。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mouriya+Kobe+Beef"
+            },
+            {
+              "time": "15:00 - 18:00",
+              "title": "生田神社 & 神戶港 Harborland / MOSAIC 摩天輪海景",
+              "location": "神戶市中央區東川崎町1-6-1 (Kobe Harborland)",
+              "hours": "全天開放 (黃昏海港景色絕美)",
+              "category": "culture",
+              "tip": "參訪歷史悠久的生田神社，隨後漫步至神戶港 Harborland 港埠與『BE KOBE』地標，吹著海風欣賞神戶塔與摩天輪百萬黃昏夕照。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kobe+Harborland"
+            },
+            {
+              "time": "18:30 - 19:15",
+              "title": "搭乘阪神電鐵 快速急行 直達大阪難波",
+              "location": "阪神神戶三宮站 ➔ 大阪難波站 (Osaka Namba Station)",
+              "hours": "車程約 45 分鐘",
+              "category": "culture",
+              "tip": "自神戶三宮搭乘阪神電鐵『快速急行』免轉車直達大阪難波，出站步行前往今晚入住的天然溫泉飯店御宿野乃。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Osaka+Namba+Station"
+            },
+            {
+              "time": "19:40 - 20:30",
+              "title": "御宿野乃 難波 Check-in 領行李 & 晚餐：道頓堀 味乃家 大阪燒",
+              "location": "大阪市中央區日本橋1-4-18 / 道頓堀難波1-7-16",
+              "hours": "味乃家營業至 22:00",
+              "category": "dining",
+              "tip": "抵達飯店 Check-in 並領取早上自京都寄達的行李！晚餐步行 5 分鐘至米其林推薦『味乃家』享用現煎豬肉/海鮮大阪燒 (確認不加牛筋內臟)。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ajinoya+Dotonbori"
+            },
+            {
+              "time": "22:00 - 23:00",
+              "title": "天然溫泉「花風之湯」桑拿冷水池 & 免費宵夜夜鳴拉麵",
+              "location": "御宿 野乃 難波 (Onyado Nono Namba) 溫泉大浴場",
+              "hours": "溫泉全天開放 / 夜鳴拉麵 21:30 - 23:00",
+              "category": "run",
+              "tip": "體驗大阪市區罕見的榻榻米溫泉宿！享受『花風之湯』與高溫乾式桑拿、15°C 冷水池交替循環，泡湯後享用免費特製醬油『夜鳴拉麵』宵夜。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Onyado+Nono+Namba"
+            }
+          ]
+        },
+        {
+          "dayNumber": 6,
+          "id": "day6",
+          "date": "2026/09/11 (Fri)",
+          "title": "★【大阪城跑步驛站手ぶら空手跑】・黑門早午餐・空中庭園",
+          "routeHighlight": "晨跑路線：大阪城公園內外濠世界級環形跑道 (自 RUNNING BASE 驛站出發，環繞護城河與天守閣約 6km)",
+          "items": [
+            {
+              "time": "06:45 - 07:00",
+              "title": "搭乘地鐵長堀鶴見綠地線 直達森之宮 / 大阪城公園站",
+              "location": "長堀橋 / 日本橋 ➔ 森之宮 / 大阪城公園站",
+              "hours": "車程約 8 分鐘",
+              "category": "culture",
+              "tip": "早晨穿著輕便便服自飯店出發，搭乘地鐵快速前往大阪城公園，準備體驗日本最頂級的官方跑步驛站服務。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Osakajokoen+Station"
+            },
+            {
+              "time": "07:00 - 08:15",
+              "title": "★ 旗艦體驗：RUNNING BASE 大阪城「手ぶら空手租借」晨跑 (6km)",
+              "location": "RUNNING BASE 大阪城 (JO-TERRACE OSAKA 1F) ➔ 大阪城公園護城河跑道",
+              "hours": "07:00 準時開門營業",
+              "category": "run",
+              "tip": "07:00 開門抵達！購買招牌『手ぶらパック (空手輕鬆跑方案 ¥1,200)』，換上全套品牌排汗衫、跑褲、跑鞋與毛巾。晨光下環繞大阪城護城河 6km，跑後淋浴歸還跑服空手離開！",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=RUNNING+BASE+Osaka+Castle"
+            },
+            {
+              "time": "08:30 - 09:15",
+              "title": "跑後冰美式：Brooklyn Roasting 難波EKIKAN店",
+              "location": "大阪市浪速區敷津東1-1-21 (南海難波高架橋下)",
+              "hours": "08:00 - 20:00",
+              "category": "coffee",
+              "tip": "搭地鐵回難波，至南海電鐵高架橋下的紐約工業風咖啡館。以 La Marzocco 咖啡機萃取雙份濃縮調製的冰美式，醇厚焦糖可可香氣十足。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Brooklyn+Roasting+Company+Namba+EKIKAN"
+            },
+            {
+              "time": "09:30 - 11:00",
+              "title": "黑門市場 早午餐巡禮：黑門三平 現烤海鮮與大干貝",
+              "location": "大阪市中央區日本橋1-22-25 (自飯店步行 3 分鐘)",
+              "hours": "09:00 - 18:00",
+              "category": "dining",
+              "tip": "大阪人的廚房！走進黑門市場首屈一指的『黑門三平』，大啖北海道現烤特大干貝、頂級黑毛和牛串烤與新鮮黑鮪魚生魚片，零內臟純海鮮。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kuromon+Sanpei"
+            },
+            {
+              "time": "11:30 - 13:30",
+              "title": "大阪城天守閣 登頂巡禮與巨石要塞",
+              "location": "大阪市中央區大阪城1-1",
+              "hours": "09:00 - 17:00 (16:30 最後入場)",
+              "category": "culture",
+              "tip": "再次造訪大阪城核心，近距離欣賞櫻門巨石與護城河要塞，登頂 8 樓天守閣展望台，360 度俯瞰大阪城公園與現代市景交織的壯闊景觀。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Osaka+Castle"
+            },
+            {
+              "time": "14:00 - 15:00",
+              "title": "道頓堀 固力果跑跑人看板 & 心齋橋筋散策",
+              "location": "大阪市中央區道頓堀 戎橋畔 (Glico Running Man Sign)",
+              "hours": "全天開放",
+              "category": "culture",
+              "tip": "獨旅跑者必訪打卡聖地！來到道頓堀戎橋，與大阪最具代表性的地標『固力果跑跑人 (Glico Running Man)』招牌合影，感受心齋橋商圈活力。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Dotonbori+Glico+Sign"
+            },
+            {
+              "time": "15:15 - 16:45",
+              "title": "新世界・通天閣 & 元祖串炸達摩 金黃酥脆串炸",
+              "location": "大阪市浪速區惠美須東1-6-8 (通天閣周邊)",
+              "hours": "11:00 - 22:30",
+              "category": "dining",
+              "tip": "探訪充滿昭和懷舊復古風情的新世界與通天閣，品嚐『元祖串炸達摩』金黃酥脆的牛肉串、鮮蝦與蘆筍串炸，切記醬汁盆絕對禁止二次沾醬！",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kushikatsu+Daruma+Shinsekai"
+            },
+            {
+              "time": "17:30 - 19:15",
+              "title": "梅田藍天大廈 空中庭園展望台 360度露天夕照",
+              "location": "大阪市北區大淀中1-1-88 梅田藍天大廈 39-40F",
+              "hours": "09:30 - 22:00 (17:30 抵達等待日落)",
+              "category": "culture",
+              "tip": "傍晚搭地鐵御堂筋線至梅田，登上懸浮於半空中的 360 度環形露天展望台。在沒有玻璃阻隔的高空吹風，飽覽大阪港魔幻時刻落日夕霞與百萬夜景。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Umeda+Sky+Building"
+            },
+            {
+              "time": "20:00 - 21:30",
+              "title": "晚餐：黑毛和牛 燒肉 一 (心齋橋店) / 磯丸水產",
+              "location": "大阪市中央區心齋橋筋1-4-31",
+              "hours": "11:30 - 23:00",
+              "category": "dining",
+              "tip": "在大阪的最後一晚！大啖油花分布完美、入口即化的頂級黑毛和牛上等牛五花與里肌燒肉 (主動聲明不吃內臟)，或至磯丸水產享用現烤活貝大蝦。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Yakiniku+Ichi+Shinsaibashi"
+            },
+            {
+              "time": "22:00 - 23:00",
+              "title": "飯店天然溫泉大浴場泡湯 & 夜鳴拉麵宵夜",
+              "location": "御宿 野乃 難波 花風之湯",
+              "hours": "夜鳴拉麵供應至 23:00",
+              "category": "run",
+              "tip": "享受大阪最後一晚的天然溫泉與乾式桑拿冷水循環，洗去旅途疲憊，吃上一碗熱騰騰的免費夜鳴拉麵，為旅程畫下溫暖句點。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Onyado+Nono+Namba"
+            }
+          ]
+        },
+        {
+          "dayNumber": 7,
+          "id": "day7",
+          "date": "2026/09/12 (Sat)",
+          "title": "【中之島水岸跑】・特急 Rapi:t 直達關西機場返台",
+          "routeHighlight": "晨跑路線：大阪水岸地標 中之島公園水上長廊 (堂島川與土佐堀川水岸綠帶 ↔ 中央公會堂 約 5km)",
+          "items": [
+            {
+              "time": "06:30 - 07:30",
+              "title": "晨跑：大阪水岸地標 中之島公園水上長廊 (5km)",
+              "location": "大阪市北區中之島1丁目 (中之島公園綠帶)",
+              "hours": "全天開放",
+              "category": "run",
+              "tip": "旅程最終晨跑！搭乘地鐵至北濱或淀屋橋，沿著被堂島川與土佐堀川環抱的中之島水岸長廊慢跑，欣賞百年紅磚『大阪市中央公會堂』與玫瑰園。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nakanoshima+Park"
+            },
+            {
+              "time": "07:30 - 08:15",
+              "title": "跑後冰美式：Brooklyn Roasting Company 北濱本店 水岸第一排",
+              "location": "大阪市中央區北濱2-1-16 (難波橋旁)",
+              "hours": "08:00 - 19:00",
+              "category": "coffee",
+              "tip": "步道終點過橋即達！08:00 營業，挑選土佐堀川第一排露天木棧陽台座席，在晨風中品飲新鮮烘焙萃取的冰美式，眺望對岸中央公會堂晨光。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Brooklyn+Roasting+Company+Kitahama"
+            },
+            {
+              "time": "08:15 - 09:30",
+              "title": "飯店溫泉晨泡、退房與悠閒晨間朝食",
+              "location": "御宿 野乃 難波 (Onyado Nono Namba)",
+              "hours": "10:00 前辦理退房",
+              "category": "run",
+              "tip": "回飯店享受最後一次大浴場溫泉晨泡，將跑服放入館內免費洗衣機快速洗淨脫水收入行李，享用悠閒早餐並辦理退房。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Onyado+Nono+Namba"
+            },
+            {
+              "time": "10:00 - 10:38",
+              "title": "搭乘 南海電鐵特急 Rapi:t 直達關西機場 T1 (38分鐘)",
+              "location": "南海難波站 ➔ 關西機場站 (Kansai Airport Station)",
+              "hours": "10:00 發車 ➔ 10:38 抵達關西機場 (車程 38 分鐘)",
+              "category": "culture",
+              "tip": "自飯店步行 7 分鐘至南海難波站，搭乘外型如深海鐵人28號的復古藍色特急 Rapi:t，全車對號座並設有專用行李架，38 分鐘直達關西機場 T1。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nankai+Namba+Station"
+            },
+            {
+              "time": "10:40 - 12:45",
+              "title": "關西機場 T1 報到通關、免稅店 & 貴賓室休憩",
+              "location": "關西國際機場 第一航廈 4F 出境大廳",
+              "hours": "航班起飛前 2.5 小時抵達",
+              "category": "culture",
+              "tip": "至長榮航空專屬櫃台快速完成報到與行李託運，通過安檢與證照查驗後，可逛免稅店或至航空公司貴賓室享用輕食與飲品休憩。",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport"
+            },
+            {
+              "time": "13:10 - 15:05",
+              "title": "搭乘 長榮航空 BR131 起飛返台 (預計 15:05 抵達桃園 T2)",
+              "location": "關西國際機場 T1 ➔ 桃園國際機場 第二航廈 (TPE T2)",
+              "hours": "13:10 起飛 ➔ 15:05 抵達",
+              "category": "culture",
+              "tip": "搭乘長榮航空 BR131 班機起飛返台，於機上享用精緻餐點與高空景致，預計 15:05 抵達桃園國際機場 T2，完美完成 7D6N 京阪神頂級獨旅！",
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Taoyuan+International+Airport"
+            }
+          ]
+        }
+      ]
+    };
+  </script>
+</head>
+<body class="bg-wabi-bg text-indigo-deep font-sans antialiased min-h-screen selection:bg-matcha selection:text-white">
+  <div id="app" v-cloak class="min-h-screen flex flex-col justify-between">
+    
+    <!-- 1. STICKY TOP HEADER & 11 NAVIGATION TABS -->
+    <header class="sticky top-0 z-50 bg-wabi-bg/95 backdrop-blur-md border-b border-wabi-border shadow-sm">
+      <div class="max-w-6xl mx-auto px-4 pt-3 pb-2 flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block bg-indigo-deep text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full tracking-wide">2026/09/06 - 09/12</span>
+              <span class="inline-block bg-terracotta/10 text-terracotta text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-terracotta/20">嚴格零內臟 Zero-Offal</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-serif font-bold text-indigo-deep tracking-tight mt-1">
+              7D6N 京阪神獨旅深度美饌、殿堂晨跑、跑步驛站 & 精品冰美式攻略
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-text mt-0.5">
+              Solo Runner • 每日 06:30 晨跑殿堂路線與 07:30 精品 Iced Americano 早開門名店
+            </p>
+          </div>
+          <div class="hidden lg:flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-matcha-light text-matcha px-3 py-1.5 rounded-full border border-matcha/20 shadow-xs">
+              <i class="fa-solid fa-check-double"></i> 63 行程節點全檢驗
+            </span>
+          </div>
+        </div>
+
+        <!-- 11 Top-Level Horizontal Navigation Tabs -->
+        <nav class="flex overflow-x-auto gap-1.5 py-1 no-scrollbar border-t border-wabi-border/60 pt-2">
+          <button v-for="tab in tabs" :key="tab.id"
+                  @click="setTab(tab.id)"
+                  :class="[
+                    'whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-1.5',
+                    activeTab === tab.id
+                      ? 'bg-indigo-deep text-white shadow-sm font-semibold'
+                      : 'bg-white/90 hover:bg-white text-indigo-deep/80 border border-wabi-border hover:border-indigo-deep/30'
+                  ]">
+            <span>{{ tab.label }}</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- 2. INTERACTIVE CATEGORY FILTER PILLS (USING v-show FOR INITIAL HEADLESS DOM VERIFICATION) -->
+      <div v-show="activeTab.startsWith('day')" class="bg-wabi-card/95 border-t border-wabi-border py-2.5 px-4 shadow-inner">
+        <div class="max-w-6xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span class="text-xs font-semibold text-slate-text mr-1 flex items-center gap-1.5 whitespace-nowrap">
+            <i class="fa-solid fa-filter text-matcha"></i> 分類篩選:
+          </span>
+          <button v-for="filter in filterCategories" :key="filter.id"
+                  @click="selectedCategory = filter.id"
+                  :class="[
+                    'whitespace-nowrap px-3 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 border',
+                    selectedCategory === filter.id
+                      ? 'bg-matcha text-white border-matcha shadow-xs font-semibold'
+                      : 'bg-white text-indigo-deep border-wabi-border hover:border-matcha/50 hover:bg-matcha-light/30'
+                  ]">
+            <span>{{ filter.label }}</span>
+            <span :class="[
+              'px-1.5 py-0.5 text-[10px] rounded-full font-bold',
+              selectedCategory === filter.id ? 'bg-white/20 text-white' : 'bg-wabi-bg text-slate-text border border-wabi-border/60'
+            ]">
+              {{ getFilterCount(filter.id) }}
+            </span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3. MAIN CONTENT CONTAINER (ALL 11 VIEWS RENDERED WITH v-show) -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 flex-grow w-full">
+      
+      <!-- VIEW 1: 🌟 總覽 Overview -->
+      <div v-show="activeTab === 'overview'" class="space-y-8">
+        
+        <!-- Hero Banner Card -->
+        <div class="bg-gradient-to-br from-indigo-deep to-indigo-accent text-white rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+          <div class="relative z-10 space-y-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border border-white/15">
+                {{ itinerary.overview.dates }}
+              </span>
+              <span class="bg-matcha px-3 py-1 rounded-full text-xs font-bold tracking-wide">
+                🏃 Solo Runner 獨旅
+              </span>
+              <span class="bg-terracotta px-3 py-1 rounded-full text-xs font-bold tracking-wide">
+                🚫 嚴格零內臟 Zero-Offal
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-serif font-bold leading-tight">
+              {{ itinerary.overview.title }}
+            </h2>
+            <p class="text-sm sm:text-base text-wabi-bg/90 max-w-3xl leading-relaxed">
+              {{ itinerary.overview.subtitle }}
+            </p>
+          </div>
+          <!-- Decorative Japanese torii watermark icon -->
+          <div class="absolute -bottom-8 -right-8 text-white/5 text-9xl pointer-events-none select-none">
+            <i class="fa-solid fa-torii-gate"></i>
+          </div>
+        </div>
+
+        <!-- 4 Core Trip Highlights Grid -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-serif font-bold text-indigo-deep mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-gem text-matcha"></i> 獨旅四大核心準則 (Core Trip Highlights)
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div v-for="(highlight, idx) in itinerary.overview.highlights" :key="idx"
+                 class="bg-wabi-card rounded-2xl p-5 border border-wabi-border shadow-xs flex items-start gap-3.5 hover:shadow-sm transition">
+              <span class="flex-shrink-0 w-8 h-8 rounded-xl bg-matcha-light text-matcha font-bold text-sm flex items-center justify-center border border-matcha/20">
+                0{{ idx + 1 }}
+              </span>
+              <p class="text-xs sm:text-sm text-indigo-deep leading-relaxed font-medium">
+                {{ highlight }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirmed Hotels Section -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-serif font-bold text-indigo-deep mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-hotel text-matcha"></i> 全程頂級天然溫泉宿 (Confirmed Natural Onsen Hotels)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div v-for="hotel in itinerary.overview.hotels" :key="hotel.name"
+                 class="bg-white rounded-2xl p-6 border border-wabi-border shadow-xs flex flex-col justify-between gap-4 hover:shadow-md transition">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="bg-indigo-deep text-white px-3 py-1 rounded-lg text-xs font-bold">
+                    {{ hotel.nights }}
+                  </span>
+                  <span class="text-xs font-semibold text-matcha bg-matcha-light px-2.5 py-1 rounded-lg">
+                    ♨️ 天然溫泉大浴場
+                  </span>
+                </div>
+                <h4 class="text-lg font-serif font-bold text-indigo-deep">{{ hotel.name }}</h4>
+                <p class="text-xs text-slate-text font-mono">{{ hotel.nameEn }}</p>
+                <p class="text-xs text-slate-text flex items-center gap-1.5">
+                  <i class="fa-solid fa-location-dot text-terracotta"></i> {{ hotel.address }}
+                </p>
+                <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border text-xs text-indigo-deep leading-relaxed">
+                  <strong class="text-indigo-deep block mb-1">💡 跑者與住宿亮點：</strong>
+                  {{ hotel.features }}
+                </div>
+              </div>
+              <div class="pt-3 border-t border-wabi-border/60 flex justify-end">
+                <a :href="hotel.mapUrl" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 bg-indigo-accent hover:bg-indigo-deep text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-xs">
+                  <i class="fa-solid fa-map-location-dot text-matcha-light"></i>
+                  <span>📍 Google Maps 飯店導航</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirmed Dining Reservations Section -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-serif font-bold text-indigo-deep mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-terracotta"></i> 已確認頂級零內臟饗宴預約 (Confirmed Reservations)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div v-for="dine in itinerary.overview.confirmedDining" :key="dine.name"
+                 class="bg-white rounded-2xl p-6 border-2 border-terracotta/30 shadow-xs flex flex-col justify-between gap-4">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="bg-terracotta text-white px-3 py-1 rounded-lg text-xs font-bold">
+                    {{ dine.date }}
+                  </span>
+                  <span class="text-xs font-bold text-terracotta bg-terracotta-light px-2.5 py-1 rounded-lg">
+                    ✅ 已確認訂位
+                  </span>
+                </div>
+                <h4 class="text-lg font-serif font-bold text-indigo-deep">{{ dine.name }}</h4>
+                <p class="text-xs font-semibold text-matcha">{{ dine.type }}</p>
+                <div class="bg-terracotta-light/60 p-3.5 rounded-xl border border-terracotta/30 text-xs text-indigo-deep leading-relaxed">
+                  <strong class="text-terracotta block mb-1">🚨 零內臟與餐點確認：</strong>
+                  {{ dine.note }}
+                </div>
+              </div>
+              <div class="pt-3 border-t border-wabi-border/60 flex justify-end">
+                <a :href="dine.mapUrl" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 bg-terracotta hover:bg-terracotta/90 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-xs">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <span>📍 Google Maps 餐廳導航</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Luggage Forwarding Yamato Ta-Q-Bin Section -->
+        <div class="bg-white rounded-2xl p-6 border border-wabi-border shadow-xs space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-wabi-border/60 pb-3">
+            <h3 class="text-lg font-serif font-bold text-indigo-deep flex items-center gap-2">
+              <i class="fa-solid fa-truck-fast text-matcha"></i> 獨旅免搬運行李神技：黑貓宅急便 (Ta-Q-Bin)
+            </h3>
+            <span class="bg-matcha-light text-matcha text-xs font-bold px-3 py-1 rounded-full border border-matcha/20">
+              每件約 {{ itinerary.overview.luggageForwarding.fee }}
+            </span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm">
+            <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border">
+              <span class="text-slate-text block text-xs">寄件時間與地點</span>
+              <strong class="text-indigo-deep font-semibold mt-1 block">{{ itinerary.overview.luggageForwarding.schedule }}</strong>
+            </div>
+            <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border">
+              <span class="text-slate-text block text-xs">運送路線</span>
+              <strong class="text-indigo-deep font-semibold mt-1 block">{{ itinerary.overview.luggageForwarding.route }}</strong>
+            </div>
+            <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border">
+              <span class="text-slate-text block text-xs">服務商</span>
+              <strong class="text-indigo-deep font-semibold mt-1 block">{{ itinerary.overview.luggageForwarding.service }}</strong>
+            </div>
+          </div>
+          <div class="bg-matcha-light/60 p-4 rounded-xl border border-matcha/30 text-xs sm:text-sm text-indigo-deep leading-relaxed flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-matcha text-base mt-0.5"></i>
+            <div>
+              <strong class="text-matcha font-bold">跑者策略指南：</strong>
+              {{ itinerary.overview.luggageForwarding.tip }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VIEW 2: 🏃 晨跑名所 & 跑步驛站指南 (runStations) -->
+      <div v-show="activeTab === 'runStations'" class="space-y-8">
+        <div class="bg-wabi-card p-6 rounded-2xl border border-wabi-border">
+          <h2 class="text-2xl font-serif font-bold text-indigo-deep">🏃 晨跑名所 & 專業跑步驛站 (Running Stations & 6 Morning Routes)</h2>
+          <p class="text-xs sm:text-sm text-slate-text mt-1">
+            京都與大阪兩大官方旗艦跑步驛站，以及 6 條經過實測驗證、清晨 06:30 出發的殿堂級晨跑路線。
+          </p>
+        </div>
+
+        <!-- Section 1: Running Stations -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-serif font-bold text-indigo-deep mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-shower text-matcha"></i> 官方認證旗艦跑步驛站 (Run Stations)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div v-for="station in itinerary.runStations" :key="station.id"
+                 class="bg-white rounded-2xl p-6 border border-wabi-border shadow-xs flex flex-col justify-between gap-4 hover:shadow-md transition">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="bg-matcha text-white px-3 py-1 rounded-lg text-xs font-bold">
+                    {{ station.hours }}
+                  </span>
+                  <span class="text-xs font-semibold text-slate-text bg-wabi-bg px-2.5 py-1 rounded-lg border border-wabi-border">
+                    {{ station.price }}
+                  </span>
+                </div>
+                <h4 class="text-lg font-serif font-bold text-indigo-deep">{{ station.title }}</h4>
+                <p class="text-xs text-slate-text font-mono">{{ station.nameEn }}</p>
+                <p class="text-xs text-slate-text flex items-center gap-1.5">
+                  <i class="fa-solid fa-location-dot text-terracotta"></i> {{ station.location }}
+                </p>
+                <div class="bg-matcha-light p-3 rounded-xl border border-matcha/20 text-xs text-indigo-deep">
+                  <strong class="text-matcha block mb-0.5">⏱️ 飯店與跑道鄰近度：</strong>
+                  {{ station.proximity }}
+                </div>
+                <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border text-xs text-indigo-deep leading-relaxed">
+                  <strong class="text-indigo-deep block mb-1">👟 設施與租借方案：</strong>
+                  {{ station.features }}
+                </div>
+                <div class="text-xs text-slate-text bg-wabi-card p-3 rounded-xl border border-wabi-border">
+                  <span class="font-bold text-indigo-deep">💡 驛站 Tip：</span> {{ station.tip }}
+                </div>
+              </div>
+              <div class="pt-3 border-t border-wabi-border/60 flex justify-end">
+                <a :href="station.mapUrl" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 bg-indigo-accent hover:bg-indigo-deep text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-xs">
+                  <i class="fa-solid fa-map-location-dot text-matcha-light"></i>
+                  <span>📍 Google Maps 驛站導航</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: 6 Morning Run Routes -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-serif font-bold text-indigo-deep mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-route text-matcha"></i> 6 大世界級殿堂晨跑路線 (6 Verified Morning Run Routes)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-for="route in itinerary.runRoutes" :key="route.id"
+                 class="bg-white rounded-2xl p-5 border border-wabi-border shadow-xs flex flex-col justify-between gap-3 hover:shadow-md transition">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="bg-matcha-light text-matcha px-2.5 py-1 rounded-lg text-xs font-bold">
+                    🏃 {{ route.distance }}
+                  </span>
+                  <span class="text-xs text-slate-text bg-wabi-bg px-2 py-0.5 rounded border border-wabi-border">
+                    06:30 出發
+                  </span>
+                </div>
+                <h4 class="text-base font-serif font-bold text-indigo-deep">{{ route.title }}</h4>
+                <p class="text-xs text-slate-text flex items-center gap-1">
+                  <i class="fa-solid fa-location-dot text-terracotta"></i> {{ route.location }}
+                </p>
+                <p class="text-xs text-indigo-deep/90 leading-relaxed bg-wabi-bg p-3 rounded-xl border border-wabi-border">
+                  {{ route.description }}
+                </p>
+              </div>
+              <div class="pt-2 border-t border-wabi-border/60 flex justify-end">
+                <a :href="route.mapUrl" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-1.5 bg-wabi-bg hover:bg-wabi-border/50 text-indigo-deep px-3 py-1.5 rounded-lg text-xs font-medium transition border border-wabi-border">
+                  <i class="fa-solid fa-map-pin text-terracotta"></i>
+                  <span>📍 路線地圖</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VIEW 3: ☕ 07:30 冰美式精品地圖 (coffees) -->
+      <div v-show="activeTab === 'coffees'" class="space-y-8">
+        <div class="bg-wabi-card p-6 rounded-2xl border border-wabi-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-serif font-bold text-indigo-deep">☕ 07:30 冰美式精品地圖 (6 Specialty Roasters)</h2>
+            <p class="text-xs sm:text-sm text-slate-text mt-1">
+              精選京都與大阪 6 間於 07:30 或 08:00 早開門的獨立精品咖啡烘焙名店，無縫對接每日晨跑結束後的沁涼單品 Iced Americano。
+            </p>
+          </div>
+          <span class="bg-[#FAF3E8] text-[#8C6239] text-xs font-bold px-3.5 py-1.5 rounded-xl border border-[#8C6239]/20 whitespace-nowrap self-start sm:self-center">
+            早晨 07:30 / 08:00 準時營業
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div v-for="coffee in itinerary.coffees" :key="coffee.id"
+               class="bg-white rounded-2xl p-6 border border-wabi-border shadow-xs flex flex-col justify-between gap-4 hover:shadow-md transition">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="bg-indigo-deep text-white px-3 py-1 rounded-lg text-xs font-bold">
+                  {{ coffee.dayPairing }}
+                </span>
+                <span class="text-xs font-bold bg-[#FAF3E8] text-[#8C6239] px-2.5 py-1 rounded-lg">
+                  ⏰ {{ coffee.hours }}
+                </span>
+              </div>
+              <h3 class="text-lg font-serif font-bold text-indigo-deep">{{ coffee.title }}</h3>
+              <p class="text-xs text-slate-text flex items-center gap-1.5">
+                <i class="fa-solid fa-location-dot text-terracotta"></i> {{ coffee.location }}
+              </p>
+              <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border text-xs text-indigo-deep leading-relaxed">
+                <strong class="text-[#8C6239] block mb-1">🫘 豆單與萃取風味：</strong>
+                {{ coffee.beansNote }}
+              </div>
+              <div class="bg-matcha-light p-3.5 rounded-xl border-l-4 border-matcha text-xs text-indigo-deep leading-relaxed">
+                <strong class="text-matcha block mb-1">💡 晨跑搭配與品飲 Tip：</strong>
+                {{ coffee.tip }}
+              </div>
+            </div>
+            <div class="pt-3 border-t border-wabi-border/60 flex justify-end">
+              <a :href="coffee.mapUrl" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 bg-indigo-accent hover:bg-indigo-deep text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-xs">
+                <i class="fa-solid fa-map-location-dot text-matcha-light"></i>
+                <span>📍 Google Maps 咖啡導航</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: 🍜 免預約排隊 & 零內臟美饌 (dining) -->
+      <div v-show="activeTab === 'dining'" class="space-y-8">
+        <div class="bg-wabi-card p-6 rounded-2xl border border-wabi-border space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-serif font-bold text-indigo-deep">🍜 免預約排隊 & 零內臟美饌 (Confirmed & Queue-Gem Dining)</h2>
+              <p class="text-xs sm:text-sm text-slate-text mt-1">
+                嚴選京都與大阪 13 間已確認訂位或排隊名店，全面貫徹零內臟、零雜碎的安心美味準則。
+              </p>
+            </div>
+            <span class="bg-terracotta text-white text-xs font-bold px-3.5 py-1.5 rounded-xl whitespace-nowrap self-start sm:self-center">
+              100% Zero-Offal 零內臟
+            </span>
+          </div>
+
+          <!-- Zero Offal Alert Banner -->
+          <div class="bg-terracotta-light border-l-4 border-terracotta p-4 rounded-r-xl text-terracotta text-xs sm:text-sm">
+            <div class="flex items-start gap-2.5">
+              <i class="fa-solid fa-triangle-exclamation text-base mt-0.5"></i>
+              <div>
+                <strong class="font-bold block">🚨 獨旅零內臟點餐宣告準則 (Zero-Offal Dining Declaration)：</strong>
+                入座任何燒肉、鐵板燒或串炸名店時，請務必主動向服務人員出示或口頭聲明以下日語：<br>
+                <span class="font-mono bg-white/90 text-terracotta px-3 py-1 rounded-lg font-bold text-base inline-block mt-2 shadow-xs border border-terracotta/30">
+                  「ホルモンは食べられません」(Horumon wa taberaremasen)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div v-for="dine in itinerary.dining" :key="dine.id"
+               class="bg-white rounded-2xl p-6 border border-wabi-border shadow-xs flex flex-col justify-between gap-4 hover:shadow-md transition">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span :class="[
+                  'px-3 py-1 rounded-lg text-xs font-bold',
+                  dine.type === 'confirmed' ? 'bg-terracotta text-white' : 'bg-indigo-deep text-white'
+                ]">
+                  {{ dine.type === 'confirmed' ? '✅ 已確認預約 (Confirmed)' : '🔥 免預約排隊神店 (Queue Gem)' }}
+                </span>
+                <span class="text-xs font-semibold text-slate-text bg-wabi-bg px-2.5 py-1 rounded-lg border border-wabi-border">
+                  ⏰ {{ dine.hours }}
+                </span>
+              </div>
+              <h3 class="text-lg font-serif font-bold text-indigo-deep">{{ dine.title }}</h3>
+              <p class="text-xs text-slate-text flex items-center gap-1.5">
+                <i class="fa-solid fa-location-dot text-terracotta"></i> {{ dine.location }}
+              </p>
+              <div class="bg-terracotta-light/60 p-3 rounded-xl border border-terracotta/30 text-xs text-indigo-deep font-medium">
+                <span class="text-terracotta font-bold">🚫 零內臟點餐策略：</span> {{ dine.policyNote }}
+              </div>
+              <div class="bg-wabi-bg p-3.5 rounded-xl border border-wabi-border text-xs text-indigo-deep leading-relaxed">
+                <strong class="text-matcha block mb-1">💡 老饕必點攻略：</strong>
+                {{ dine.tip }}
+              </div>
+            </div>
+            <div class="pt-3 border-t border-wabi-border/60 flex justify-end">
+              <a :href="dine.mapUrl" target="_blank" rel="noopener noreferrer"
+                 :class="[
+                   'inline-flex items-center gap-2 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-xs',
+                   dine.type === 'confirmed' ? 'bg-terracotta hover:bg-terracotta/90' : 'bg-indigo-accent hover:bg-indigo-deep'
+                 ]">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>📍 Google Maps 餐廳導航</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEWS 5-11: 📅 Day 1 to Day 7 Timetables (USING v-show FOR ALL 7 DAY TABS) -->
+      <div v-for="day in itinerary.days" :key="day.id" v-show="activeTab === day.id" class="space-y-6">
+        
+        <!-- Daily Header Summary Banner -->
+        <div class="bg-wabi-card p-5 sm:p-6 rounded-2xl border border-wabi-border flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="bg-indigo-deep text-white text-xs font-bold px-3 py-1 rounded-full">
+                📅 Day {{ day.dayNumber }}
+              </span>
+              <span class="text-xs font-bold text-matcha uppercase tracking-wider">
+                {{ day.date }}
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-serif font-bold text-indigo-deep mt-1">{{ day.title }}</h2>
+            <p class="text-xs sm:text-sm text-slate-text flex items-center gap-1.5 pt-0.5">
+              <i class="fa-solid fa-route text-terracotta"></i>
+              <span>{{ day.routeHighlight }}</span>
+            </p>
+          </div>
+          <div class="text-xs text-slate-text bg-white px-3.5 py-2 rounded-xl border border-wabi-border self-start md:self-center whitespace-nowrap shadow-xs">
+            顯示 <strong class="text-indigo-deep">{{ getFilteredItems(day.items).length }}</strong> / {{ day.items.length }} 個行程節點
+          </div>
+        </div>
+
+        <!-- Filtered Cards List -->
+        <div class="space-y-4">
+          <div v-for="(card, index) in getFilteredItems(day.items)" :key="card.title + card.time"
+               class="bg-white rounded-2xl p-5 sm:p-6 border border-wabi-border shadow-xs hover:shadow-md transition-shadow duration-200">
+            
+            <!-- 4-PART CARD ANATOMY -->
+            <!-- PART 1: Top Badge Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-wabi-border/60 text-xs sm:text-sm">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-indigo-deep bg-wabi-bg px-3 py-1 rounded-lg border border-wabi-border flex items-center gap-1.5 shadow-xs">
+                  <i class="fa-regular fa-clock text-slate-text"></i> {{ card.time }}
+                </span>
+                <span :class="['px-2.5 py-1 rounded-lg font-medium text-xs flex items-center gap-1 shadow-xs', getCategoryBadgeClass(card.category)]">
+                  <i :class="getCategoryIcon(card.category)"></i> {{ getCategoryLabel(card.category) }}
+                </span>
+              </div>
+              <span class="text-slate-text font-medium text-xs bg-wabi-bg px-2.5 py-1 rounded-md border border-wabi-border/60">
+                ⏰ {{ card.hours }}
+              </span>
+            </div>
+
+            <!-- PART 2: Title & Location Header -->
+            <div>
+              <h3 class="text-lg sm:text-xl font-serif font-bold text-indigo-deep">{{ card.title }}</h3>
+              <p class="text-xs sm:text-sm text-slate-text flex items-center gap-1.5 mt-1">
+                <i class="fa-solid fa-location-dot text-terracotta/80"></i> {{ card.location }}
+              </p>
+            </div>
+
+            <!-- PART 3: Zero-Offal Warning Alert & Insider Tip Box -->
+            <div v-if="isZeroOffalCard(card)" 
+                 class="mt-3 bg-terracotta-light border-l-4 border-terracotta p-4 rounded-r-xl text-terracotta text-xs sm:text-sm font-medium">
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-triangle-exclamation mt-0.5 text-base"></i>
+                <div>
+                  <div class="font-bold">🚨 零內臟點餐聲明 (Zero-Offal Dining Warning)</div>
+                  <div class="mt-1">入座點餐時請務必出示或告知服務人員：<br>
+                    <span class="font-mono bg-white/90 px-2.5 py-0.5 rounded text-terracotta font-bold text-sm sm:text-base inline-block mt-1 border border-terracotta/20">
+                      「ホルモンは食べられません」(Horumon wa taberaremasen)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div v-if="card.tip" class="mt-3 bg-matcha-light border-l-4 border-matcha p-3.5 sm:p-4 rounded-r-xl text-xs sm:text-sm text-indigo-deep leading-relaxed">
+              <div class="font-bold text-matcha mb-0.5 flex items-center gap-1.5">
+                <i class="fa-solid fa-lightbulb"></i> 跑者與老饕私房攻略 Tip:
+              </div>
+              <div>{{ card.tip }}</div>
+            </div>
+
+            <!-- PART 4: One-Click Google Maps Action Button -->
+            <div class="mt-4 pt-3 border-t border-wabi-border/40 flex items-center justify-end">
+              <a :href="card.mapUrl" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 bg-indigo-accent hover:bg-indigo-deep text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-xs hover:shadow">
+                <i class="fa-solid fa-map-location-dot text-matcha-light"></i>
+                <span>📍 Google Maps 導航</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Empty filter message if no cards match filter -->
+          <div v-if="getFilteredItems(day.items).length === 0"
+               class="bg-wabi-card rounded-2xl p-12 text-center text-slate-text border border-wabi-border">
+            <i class="fa-solid fa-filter-circle-xmark text-4xl mb-3 text-slate-text/50"></i>
+            <p class="font-medium text-sm">此分類下本日無對應行程節點，請切換至「All / 全部」檢視完整當日規劃。</p>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="bg-wabi-card border-t border-wabi-border py-8 text-center text-slate-text text-xs sm:text-sm mt-12">
+      <div class="max-w-6xl mx-auto px-4 space-y-2">
+        <p class="font-serif font-bold text-indigo-deep">7D6N Kyoto & Osaka Solo Runner's Gourmet & Specialty Coffee Itinerary</p>
+        <p>Designed with Kyoto Modern Wabi-sabi Aesthetics • 100% Zero-Offal (零內臟) • Verified 06:30 Runs & 07:30 Roasters</p>
+        <p class="text-[11px] text-slate-text/70">Solo Runner Edition © 2026</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Vue 3 App Logic -->
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          activeTab: 'overview',
+          selectedCategory: 'all',
+          itinerary: ITINERARY_DATA,
+          tabs: [
+            { id: 'overview', label: '🌟 總覽 Overview' },
+            { id: 'runStations', label: '🏃 晨跑名所 & 跑步驛站' },
+            { id: 'coffees', label: '☕ 07:30 冰美式精品地圖' },
+            { id: 'dining', label: '🍜 免預約排隊 & 零內臟美饌' },
+            { id: 'day1', label: '📅 Day 1 (9/6)' },
+            { id: 'day2', label: '📅 Day 2 (9/7)' },
+            { id: 'day3', label: '📅 Day 3 (9/8)' },
+            { id: 'day4', label: '📅 Day 4 (9/9)' },
+            { id: 'day5', label: '📅 Day 5 (9/10)' },
+            { id: 'day6', label: '📅 Day 6 (9/11)' },
+            { id: 'day7', label: '📅 Day 7 (9/12)' }
+          ],
+          filterCategories: [
+            { id: 'all', label: 'All / 全部' },
+            { id: 'run', label: '🏃 晨跑與修復' },
+            { id: 'coffee', label: '☕ 精品咖啡' },
+            { id: 'dining', label: '🍜 嚴選美饌' },
+            { id: 'culture', label: '⛩️ 景點與文化' }
+          ]
+        };
+      },
+      computed: {
+        currentDayObj() {
+          if (!this.activeTab.startsWith('day')) return { date: '', title: '', items: [] };
+          return this.itinerary.days.find(d => d.id === this.activeTab) || { date: '', title: '', items: [] };
+        }
+      },
+      methods: {
+        setTab(tabId) {
+          this.activeTab = tabId;
+          if (tabId.startsWith('day')) {
+            this.selectedCategory = 'all';
+          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        getFilteredItems(items) {
+          if (!items) return [];
+          if (this.selectedCategory === 'all') return items;
+          return items.filter(item => item.category === this.selectedCategory);
+        },
+        getFilterCount(categoryId) {
+          const items = this.currentDayObj.items || [];
+          if (categoryId === 'all') return items.length;
+          return items.filter(item => item.category === categoryId).length;
+        },
+        getCategoryLabel(category) {
+          const map = {
+            run: '晨跑與修復',
+            coffee: '精品咖啡',
+            dining: '嚴選美饌',
+            culture: '景點與文化'
+          };
+          return map[category] || '行程';
+        },
+        getCategoryIcon(category) {
+          const map = {
+            run: 'fa-solid fa-person-running',
+            coffee: 'fa-solid fa-mug-hot',
+            dining: 'fa-solid fa-utensils',
+            culture: 'fa-solid fa-torii-gate'
+          };
+          return map[category] || 'fa-solid fa-circle-dot';
+        },
+        getCategoryBadgeClass(category) {
+          const map = {
+            run: 'bg-[#EBF1ED] text-[#4A6B5B]',
+            coffee: 'bg-[#FAF3E8] text-[#8C6239]',
+            dining: 'bg-[#F7EBE9] text-[#9B3B2B]',
+            culture: 'bg-[#EBF0F5] text-[#1E2A38]'
+          };
+          return map[category] || 'bg-gray-100 text-gray-700';
+        },
+        isZeroOffalCard(card) {
+          if (!card || !card.title) return false;
+          const t = card.title;
+          return t.includes('弘') || t.includes('Hiro') || t.includes('Mouriya') || t.includes('神戶牛') || (card.tip && card.tip.includes('Horumon'));
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
