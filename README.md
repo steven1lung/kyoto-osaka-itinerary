@@ -3,7 +3,7 @@
 
 這是一個自包含的互動式單頁網站應用程式（Single-Page Web Application），專為熱愛**清晨跑步（~06:30 AM）**、**跑步驛站空手跑服租借（手ぶら）**、**早晨精品冰美式（Iced Americano）** 與 **無動物內臟（Zero Offal）排隊美食** 的獨旅跑者設計。
 
-👉 **[🌐 點此前往 GitHub Pages 線上即時瀏覽（Live Demo）](https://steven1lung-bombaclat.github.io/kyoto-osaka-itinerary/)**
+👉 **[🌐 點此前往 GitHub Pages 線上即時瀏覽（Live Demo）](https://steven1lung.github.io/kyoto-osaka-itinerary/)**
 
 ---
 
