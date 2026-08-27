@@ -838,6 +838,28 @@ class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
                 f"{item_id} mapUrl must start with https://www.google.com/maps (got '{map_url}')",
             )
 
+    def test_05_trending_category_filter_pills_and_labels(self):
+        """Assert HTML/data defines all 5 required trending category filter pills with matching items."""
+        html = self.get_html_content()
+        data = self.get_itinerary_data()
+        trending = data.get("trendingFinds", [])
+        expected_categories = {"all", "ohtani", "donki", "conbini", "souvenir"}
+        for cat in expected_categories:
+            self.assertIn(cat, html, f"Trending category pill '{cat}' must be present in HTML/Vue code")
+            if cat != "all":
+                count = sum(1 for item in trending if item.get("category") == cat)
+                self.assertGreater(count, 0, f"Category '{cat}' must have at least 1 trending item (found {count})")
+
+    def test_06_trending_items_unique_ids_and_completeness(self):
+        """Assert all trending finds items possess unique IDs, valid titles, and recommended stores."""
+        data = self.get_itinerary_data()
+        trending = data.get("trendingFinds", [])
+        ids = [item.get("id") for item in trending]
+        self.assertEqual(len(ids), len(set(ids)), f"All trending item IDs must be unique (found duplicates: {ids})")
+        for item in trending:
+            self.assertTrue(item.get("titleJa"), f"Trending item {item.get('id')} must contain Japanese title 'titleJa'")
+            self.assertTrue(item.get("recommendedStore"), f"Trending item {item.get('id')} must contain recommendedStore")
+
 
 class TestHeadlessBrowserDomRendering(ItineraryTestBase):
     """7. Runs headless Chrome to verify Vue mounting, no mustache leaks, and DOM rendering."""

@@ -1214,7 +1214,7 @@
 <body class="bg-wabi-bg text-indigo-deep font-sans antialiased min-h-screen selection:bg-matcha selection:text-white">
   <div id="app" v-cloak class="min-h-screen flex flex-col justify-between">
     
-    <!-- 1. STICKY TOP HEADER & 11 NAVIGATION TABS -->
+    <!-- 1. STICKY TOP HEADER & 12 NAVIGATION TABS -->
     <header class="sticky top-0 z-50 bg-wabi-bg/95 backdrop-blur-md border-b border-wabi-border shadow-sm">
       <div class="max-w-6xl mx-auto px-4 pt-3 pb-2 flex flex-col gap-2">
         <div class="flex items-center justify-between">
@@ -1237,7 +1237,7 @@
           </div>
         </div>
 
-        <!-- 11 Top-Level Horizontal Navigation Tabs -->
+        <!-- 12 Top-Level Horizontal Navigation Tabs -->
         <nav class="flex overflow-x-auto gap-1.5 py-1 no-scrollbar border-t border-wabi-border/60 pt-2">
           <button v-for="tab in tabs" :key="tab.id"
                   @click="setTab(tab.id)"
@@ -1278,7 +1278,7 @@
       </div>
     </header>
 
-    <!-- 3. MAIN CONTENT CONTAINER (ALL 11 VIEWS RENDERED WITH v-show) -->
+    <!-- 3. MAIN CONTENT CONTAINER (ALL 12 VIEWS RENDERED WITH v-show) -->
     <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 flex-grow w-full">
       
       <!-- VIEW 1: 🌟 總覽 Overview -->
@@ -1761,6 +1761,13 @@
                 <span>📍 門市導航</span>
               </a>
             </div>
+          </div>
+
+          <!-- Empty filter message if no trending items match filter -->
+          <div v-if="getFilteredTrending(itinerary.trendingFinds).length === 0"
+               class="bg-wabi-card rounded-2xl p-12 text-center text-slate-text border border-wabi-border md:col-span-2">
+            <i class="fa-solid fa-filter-circle-xmark text-4xl mb-3 text-slate-text/50"></i>
+            <p class="font-medium text-sm">此分類下尚無對應爆紅商品，請切換至「All / 全部話題好物」檢視完整清單。</p>
           </div>
         </div>
 
