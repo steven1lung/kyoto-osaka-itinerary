@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Standalone E2E Verification Test Runner for the 7D6N Kyoto & Osaka Solo Runner's Itinerary Web App.
 
-This test harness covers all 11 features across 6 comprehensive test classes:
+This test harness covers all features across 7 comprehensive test classes:
   1) TestItinerarySyntaxAndStructure: HTML5 structure, Wabi-sabi palette tokens, JSON parsing.
   2) TestOverviewAndLogisticsInvariants: Hotels, Ta-Q-Bin luggage forwarding, 7D6N context.
   3) TestRunningStationsAndRoasters: OSHMAN'S Kyoto, RUNNING BASE Osaka Castle, 6 morning routes & roasters.
   4) TestZeroOffalAndDiningInvariants: Yakiniku Hiro exact zero-offal phrase, Mouriya A5 butter/tallow, queue gems.
-  5) TestDailyScheduleCardsAndFilterCategories: 7 days, 63 cards, schema validation, 5 filter pills, 11 tabs.
-  6) TestHeadlessBrowserDomRendering: Headless Google Chrome execution, Vue 3 mounting, no mustache leaks.
+  5) TestDailyScheduleCardsAndFilterCategories: 7 days, 63 cards, schema validation, 5 filter pills, 12 tabs.
+  6) TestTrendingFindsAndShoppingInvariants: Ohtani Iwaizumi yogurt, Don Quijote Jonetz, Conbini viral gems.
+  7) TestHeadlessBrowserDomRendering: Headless Google Chrome execution, Vue 3 mounting, no mustache leaks.
 
 When index.html is not yet created, tests fail cleanly via unittest assertion errors.
 """
@@ -229,6 +230,7 @@ class ItineraryTestBase(unittest.TestCase):
             ("runStations", "🏃 晨跑名所 & 跑步驛站"),
             ("coffees", "☕ 07:30 冰美式精品地圖"),
             ("dining", "🍜 免預約排隊 & 零內臟美饌"),
+            ("trendingFinds", "🛍️ 日本爆紅小商品 & 必買清單"),
             ("day1", "📅 Day 1 (9/6)"),
             ("day2", "📅 Day 2 (9/7)"),
             ("day3", "📅 Day 3 (9/8)"),
@@ -281,6 +283,10 @@ class ItineraryTestBase(unittest.TestCase):
         for dn in data.get("dining", []):
             html_parts.append(
                 f'<div class="dining-card"><h3>{dn.get("title", "")}</h3><p>{dn.get("location", "")}</p><a href="{dn.get("mapUrl", "")}">Google Maps</a></div>'
+            )
+        for tr in data.get("trendingFinds", []):
+            html_parts.append(
+                f'<div class="trending-card"><h3>{tr.get("title", "")}</h3><p>{tr.get("brand", "")}</p><p>{tr.get("highlight", "")}</p><p>{tr.get("whereToBuy", "")}</p><a href="{tr.get("mapUrl", "")}">Google Maps</a></div>'
             )
 
         html_parts.append('</div></main></div></body></html>')
@@ -348,7 +354,7 @@ class TestItinerarySyntaxAndStructure(ItineraryTestBase):
     def test_04_itinerary_data_json_extraction(self):
         """Assert ITINERARY_DATA parses cleanly and contains required top-level keys."""
         data = self.get_itinerary_data()
-        required_keys = ["overview", "runStations", "coffees", "dining", "days"]
+        required_keys = ["overview", "runStations", "coffees", "dining", "trendingFinds", "days"]
         for key in required_keys:
             self.assertIn(key, data, f"ITINERARY_DATA must contain root key '{key}'")
             self.assertIsNotNone(data[key], f"ITINERARY_DATA['{key}'] must not be null/None")
@@ -635,8 +641,8 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
                     f"{card_id} mapUrl must start with https://www.google.com/maps (got '{map_url}')",
                 )
 
-        # Also assert valid Google Maps URLs across runStations, coffees, and dining arrays
-        for collection_key in ["runStations", "coffees", "dining"]:
+        # Also assert valid Google Maps URLs across runStations, coffees, dining, and trendingFinds arrays
+        for collection_key in ["runStations", "coffees", "dining", "trendingFinds"]:
             self.assertIn(collection_key, data, f"ITINERARY_DATA must contain '{collection_key}' key")
             self.assertIsNotNone(data[collection_key], f"ITINERARY_DATA['{collection_key}'] must not be null/None")
             self.assertIsInstance(data[collection_key], list, f"ITINERARY_DATA['{collection_key}'] must be a list")
@@ -667,14 +673,15 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
                 f"index.html must define category filter pill for '{filter_key}' ({keywords})",
             )
 
-    def test_05_eleven_navigation_tabs_defined(self):
-        """Assert HTML/data defines all 11 top-level navigation tab views."""
+    def test_05_twelve_navigation_tabs_defined(self):
+        """Assert HTML/data defines all 12 top-level navigation tab views including trendingFinds."""
         html = self.get_html_content()
         expected_tabs = [
             ("overview", ["總覽", "Overview", "overview"]),
             ("runStations", ["晨跑名所", "跑步驛站", "runStations"]),
             ("coffees", ["冰美式", "精品地圖", "coffees"]),
             ("dining", ["零內臟", "免預約", "dining"]),
+            ("trendingFinds", ["爆紅", "必買", "trendingFinds", "trending"]),
             ("day1", ["Day 1", "day1"]),
             ("day2", ["Day 2", "day2"]),
             ("day3", ["Day 3", "day3"]),
@@ -723,8 +730,117 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(kw in day4_str for kw in ["牛光", "Ushimitsu", "熟成黑毛和牛", "茶漬"]), "Day 4 dinner must feature Gion Ushimitsu roasted Wagyu chazuke bowl")
 
 
+class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
+    """6. Checks Trending Japanese finds: Shohei Ohtani yogurt, Don Quijote Jonetz, Convenience store viral gems."""
+
+    def test_01_ohtani_iwaizumi_yogurt_present(self):
+        """Assert Shohei Ohtani's favorite Iwaizumi yogurt is documented with texture and where-to-buy tips."""
+        data = self.get_itinerary_data()
+        self.assertIn("trendingFinds", data, "ITINERARY_DATA must contain 'trendingFinds' key")
+        trending = data["trendingFinds"]
+        self.assertIsInstance(trending, list, "ITINERARY_DATA['trendingFinds'] must be a list")
+        trending_str = json.dumps(trending, ensure_ascii=False)
+        self.assertTrue(
+            any(kw in trending_str for kw in ["大谷翔平", "大谷", "Ohtani", "Shohei"]),
+            "Trending finds must feature Shohei Ohtani (大谷翔平) endorsement",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["岩泉", "Iwaizumi", "岩泉ヨーグルト"]),
+            "Trending finds must feature Iwate Iwaizumi Yogurt (岩泉ヨーグルト)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["もっちり", "もちもち", "牽絲", "濃稠", "黏稠"]),
+            "Iwaizumi Yogurt description must highlight unique chewy/stretchy texture (もっちり / 牽絲 / 濃稠)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["成城石井", "Seijo Ishii", "阪急", "Hankyu", "Life"]),
+            "Iwaizumi Yogurt where-to-buy guide must mention Seijo Ishii (成城石井) or Kansai supermarkets",
+        )
+
+    def test_02_don_quijote_jonetz_must_buys(self):
+        """Assert Don Quijote (Donki) Jonetz viral snacks, garlic sesame seasoning, and runner relief items are documented."""
+        data = self.get_itinerary_data()
+        self.assertIn("trendingFinds", data, "ITINERARY_DATA must contain 'trendingFinds' key")
+        trending = data["trendingFinds"]
+        trending_str = json.dumps(trending, ensure_ascii=False)
+        self.assertTrue(
+            any(kw in trending_str for kw in ["唐吉訶德", "唐吉軻德", "Don Quijote", "情熱價格", "Jonetz"]),
+            "Trending finds must feature Don Quijote / 情熱價格 (Jonetz) essentials",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["紅春香", "烤地瓜", "地瓜", "焼き芋"]),
+            "Donki essentials must feature roasted sweet potato chips (紅春香 / 焼き芋スナック)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["萬能", "ごまにんにく", "大蒜", "芝麻", "麻油"]),
+            "Donki essentials must feature Sesame Garlic seasoning (萬能麻油大蒜芝麻香鬆 / ごまにんにく)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["蒟蒻", "果凍", "杏仁", "素焼きアーモンド"]),
+            "Donki essentials must feature konjac jelly or giant almonds",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["蒸氣眼罩", "休足時間", "めぐりズム"]),
+            "Donki / Drugstore essentials must feature runner recovery items (蒸氣眼罩 / 休足時間)",
+        )
+
+    def test_03_convenience_store_viral_gems(self):
+        """Assert 7-11 machine smoothie, Lawson Karaage-kun & Uchi Cafe, Ohayo Brulee ice cream, and Famichiki are documented."""
+        data = self.get_itinerary_data()
+        self.assertIn("trendingFinds", data, "ITINERARY_DATA must contain 'trendingFinds' key")
+        trending = data["trendingFinds"]
+        trending_str = json.dumps(trending, ensure_ascii=False)
+        self.assertTrue(
+            any(kw in trending_str for kw in ["セブンカフェ スムージー", "スムージー", "Smoothie", "冰沙"]),
+            "Convenience store gems must feature 7-Eleven in-store fresh machine smoothie (セブンカフェ スムージー)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["からあげクン", "Karaage-kun", "炸雞塊"]),
+            "Convenience store gems must feature Lawson Karaage-kun (からあげクン)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["BRULEE", "ブリュレ", "烤布蕾", "OHAYO"]),
+            "Convenience store gems must feature OHAYO Brulee ice cream (BRULEE ブリュレ アイス)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["ファミチキ", "Famichiki", "全家"]),
+            "Convenience store gems must feature FamilyMart Famichiki (ファミチキ)",
+        )
+        self.assertTrue(
+            any(kw in trending_str for kw in ["生乳捲", "Roll Cake", "Baschee", "巴斯克", "Uchi Café"]),
+            "Convenience store gems must feature Lawson Uchi Cafe premium sweets (生乳捲 / 巴斯克)",
+        )
+
+    def test_04_trending_cards_schema_and_maps_urls(self):
+        """Assert all trending finds cards adhere to schema and contain valid Google Maps URLs."""
+        data = self.get_itinerary_data()
+        self.assertIn("trendingFinds", data, "ITINERARY_DATA must contain 'trendingFinds' key")
+        trending = data["trendingFinds"]
+        self.assertIsInstance(trending, list, "trendingFinds must be a list")
+        self.assertGreaterEqual(len(trending), 10, "trendingFinds should contain at least 10 curated viral items")
+        required_fields = ["id", "category", "categoryBadge", "title", "brand", "price", "highlight", "texture", "whereToBuy", "tip", "mapUrl"]
+        valid_categories = {"ohtani", "donki", "conbini", "souvenir"}
+        for idx, item in enumerate(trending, start=1):
+            self.assertIsInstance(item, dict, f"trendingFinds[{idx}] must be a dictionary")
+            item_id = f"trendingFinds[{idx}] ({item.get('title', 'Unknown')})"
+            for field in required_fields:
+                self.assertIn(field, item, f"{item_id} is missing required field '{field}'")
+                self.assertIsNotNone(item[field], f"{item_id} field '{field}' must not be null/None")
+                self.assertTrue(str(item[field]).strip(), f"{item_id} field '{field}' must not be empty")
+            self.assertIn(
+                item["category"],
+                valid_categories,
+                f"{item_id} has invalid category '{item['category']}'. Must be one of {valid_categories}",
+            )
+            map_url = item["mapUrl"]
+            self.assertTrue(
+                map_url.startswith("https://www.google.com/maps") or map_url.startswith("https://maps.google.com"),
+                f"{item_id} mapUrl must start with https://www.google.com/maps (got '{map_url}')",
+            )
+
+
 class TestHeadlessBrowserDomRendering(ItineraryTestBase):
-    """6. Runs headless Chrome to verify Vue mounting, no mustache leaks, and DOM rendering."""
+    """7. Runs headless Chrome to verify Vue mounting, no mustache leaks, and DOM rendering."""
 
     def test_01_headless_chrome_dump_dom_execution(self):
         """Assert headless Chrome executes against index.html and dumps non-empty DOM."""
@@ -763,7 +879,7 @@ class TestHeadlessBrowserDomRendering(ItineraryTestBase):
         """Assert navigation tab buttons are rendered in the DOM with interactive styling."""
         soup = self.get_rendered_soup()
         buttons = soup.find_all(["button", "a"])
-        tab_keywords = ["總覽", "晨跑", "冰美式", "美饌", "Day 1", "Day 7"]
+        tab_keywords = ["總覽", "晨跑", "冰美式", "美饌", "爆紅", "Day 1", "Day 7"]
         for kw in tab_keywords:
             matched = any(kw in btn.get_text(" ", strip=True) for btn in buttons)
             self.assertTrue(
