@@ -570,7 +570,7 @@ class TestZeroOffalAndDiningInvariants(ItineraryTestBase):
 
 
 class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
-    """5. Checks 7 days, exactly 63 cards, card schema, 5 filter categories, 11 navigation tabs."""
+    """5. Checks 7 days, exactly 71 cards, card schema, 5 filter categories, 12 navigation tabs."""
 
     def test_01_seven_days_schedule_structure(self):
         """Assert days array contains 7 day objects with dayNumber/title and items list."""
@@ -586,8 +586,8 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
             self.assertIsNotNone(day_obj["items"], f"Day {idx} 'items' must not be null/None")
             self.assertIsInstance(day_obj["items"], list, f"Day {idx} 'items' must be a list")
 
-    def test_02_total_card_count_sixty_three(self):
-        """Assert exactly 63 time-slotted cards across the 7 daily schedules."""
+    def test_02_total_card_count_seventy_one(self):
+        """Assert exactly 71 time-slotted cards across the 7 daily schedules."""
         data = self.get_itinerary_data()
         self.assertIn("days", data, "ITINERARY_DATA must contain 'days' key")
         days = data["days"]
@@ -601,8 +601,8 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         total_cards = sum(len(d["items"]) for d in days)
         self.assertEqual(
             total_cards,
-            63,
-            f"Expected exactly 63 time-slotted cards across Days 1-7, but found {total_cards}",
+            71,
+            f"Expected exactly 71 time-slotted cards across Days 1-7, but found {total_cards}",
         )
 
     def test_03_card_schema_and_google_maps_urls(self):
@@ -701,7 +701,7 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         data = self.get_itinerary_data()
         day4 = next((d for d in data["days"] if d.get("id") == "day4" or d.get("dayNumber") == 4), None)
         self.assertIsNotNone(day4, "Day 4 schedule object must exist in ITINERARY_DATA['days']")
-        self.assertEqual(len(day4["items"]), 10, f"Day 4 must contain exactly 10 cards (found {len(day4['items'])})")
+        self.assertEqual(len(day4["items"]), 11, f"Day 4 must contain exactly 11 cards (found {len(day4['items'])})")
 
         day4_str = json.dumps(day4, ensure_ascii=False)
 
@@ -713,7 +713,8 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(kw in day4_str for kw in ["here Kyoto", "here", "三條本店"]), "Day 4 must feature here Kyoto Sanjo Main Store")
         self.assertIn("08:00", day4_str, "here Kyoto entry must confirm 08:00 AM opening time")
 
-        # 3. Scenic Transit & Kifune Shrine
+        # 3. Demachi Futaba Mame Daifuku & Scenic Transit & Kifune Shrine
+        self.assertTrue(any(kw in day4_str for kw in ["出町ふたば", "出町雙葉", "豆餅", "Futaba"]), "Day 4 must feature Demachi Futaba Mame Daifuku quick stop")
         self.assertTrue(any(kw in day4_str for kw in ["叡山電鐵", "Eizan", "きらら", "Kirara"]), "Day 4 must feature Eizan Railway 'Kirara' scenic train")
         self.assertTrue(any(kw in day4_str for kw in ["貴船神社", "Kifune Shrine", "Kifune"]), "Day 4 must feature Kifune Shrine")
         self.assertTrue(any(kw in day4_str for kw in ["水占卜", "水占い", "mizu-uranai", "紅燈籠", "朱紅鳥居"]), "Day 4 Kifune Shrine card must mention water fortune divination or red lantern stone staircase")
@@ -859,6 +860,57 @@ class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
         for item in trending:
             self.assertTrue(item.get("titleJa"), f"Trending item {item.get('id')} must contain Japanese title 'titleJa'")
             self.assertTrue(item.get("recommendedStore"), f"Trending item {item.get('id')} must contain recommendedStore")
+
+    def test_07_trending_finds_woven_into_daily_schedules(self):
+        """Assert trending finds and mini-shopping stops are woven into daily schedules."""
+        data = self.get_itinerary_data()
+        days_str = json.dumps(data.get("days", []), ensure_ascii=False)
+
+        # 1. Shohei Ohtani Iwaizumi yogurt in Day 1 schedule (Takashimaya B1)
+        self.assertTrue(
+            any(kw in days_str for kw in ["岩泉", "Iwaizumi"]) and any(kw in days_str for kw in ["高島屋", "Takashimaya"]),
+            "Daily schedule must weave Ohtani Iwaizumi Yogurt at Takashimaya B1",
+        )
+
+        # 2. Don Quijote in Kyoto (Day 1) and Osaka Dotonbori (Day 5)
+        self.assertTrue(
+            "唐吉訶德 京都四條河原町" in days_str or "Don Quijote Kyoto Shijo" in days_str,
+            "Daily schedule must weave Don Quijote Kyoto Shijo Kawaramachi",
+        )
+        self.assertTrue(
+            "唐吉訶德 道頓堀" in days_str or "Don Quijote Dotonbori" in days_str,
+            "Daily schedule must weave Don Quijote Dotonbori",
+        )
+
+        # 3. 7-Eleven Smoothie in Day 2
+        self.assertTrue(
+            any(kw in days_str for kw in ["スムージー", "Smoothie", "鮮打果昔"]),
+            "Daily schedule must weave 7-Eleven in-store fresh smoothie",
+        )
+
+        # 4. OHAYO Brulee ice cream in Day 2
+        self.assertTrue(
+            any(kw in days_str for kw in ["BRULEE", "ブリュレ", "烤布蕾"]),
+            "Daily schedule must weave OHAYO Brulee ice cream",
+        )
+
+        # 5. Lawson Karaage-kun in Day 3
+        self.assertTrue(
+            any(kw in days_str for kw in ["からあげクン", "Karaage-kun", "炸雞君"]),
+            "Daily schedule must weave Lawson Karaage-kun",
+        )
+
+        # 6. Demachi Futaba Mame Daifuku in Day 4
+        self.assertTrue(
+            any(kw in days_str for kw in ["出町ふたば", "出町雙葉", "豆餅"]),
+            "Daily schedule must weave Demachi Futaba Mame Daifuku",
+        )
+
+        # 7. 551 HORAI in Day 5
+        self.assertTrue(
+            any(kw in days_str for kw in ["551 蓬萊", "551 HORAI", "豚まん", "純豬肉包"]),
+            "Daily schedule must weave 551 HORAI steamed pork buns upon Namba arrival",
+        )
 
 
 class TestHeadlessBrowserDomRendering(ItineraryTestBase):
