@@ -1257,12 +1257,12 @@
               Solo Runner • 每日 06:30 晨跑殿堂路線與 07:30 精品 Iced Americano 早開門名店
             </p>
           </div>
-          <div class="hidden lg:flex items-center gap-2.5">
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-matcha-light text-matcha px-3 py-1.5 rounded-full border border-matcha/20 shadow-xs">
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold bg-matcha-light text-matcha px-3 py-1.5 rounded-full border border-matcha/20 shadow-xs">
               <i class="fa-solid fa-check-double"></i> 66 行程節點全檢驗
             </span>
-            <button @click="exportIcsCalendar" class="inline-flex items-center gap-1.5 text-xs font-bold bg-matcha hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-full shadow-xs transition cursor-pointer">
-              <i class="fa-solid fa-calendar-arrow-down"></i> 📅 匯出行事曆 (.ics)
+            <button @click="exportIcsCalendar" class="inline-flex items-center gap-1.5 text-xs font-bold bg-matcha hover:bg-emerald-700 text-white px-3 sm:px-3.5 py-1.5 rounded-full shadow-xs transition cursor-pointer" title="匯出行事曆 (.ics)">
+              <i class="fa-solid fa-calendar-arrow-down"></i> <span class="hidden sm:inline">📅 </span>匯出行事曆<span class="hidden md:inline"> (.ics)</span>
             </button>
           </div>
         </div>
@@ -2070,7 +2070,7 @@
               } else {
                 return [
                   `${dateStr}T${String(sh).padStart(2, '0')}${String(sm).padStart(2, '0')}00`,
-                  `${dateStr}T${String(sh + 1).padStart(2, '0')}${String(sm).padStart(2, '0')}00`
+                  `${dateStr}T${String((sh + 1) % 24).padStart(2, '0')}${String(sm).padStart(2, '0')}00`
                 ];
               }
             }
@@ -2105,7 +2105,7 @@
             const dstr = dates[dnum] || '20260906';
             for (const item of (day.items || [])) {
               const [startDt, endDt] = parseTime(item.time, dstr);
-              const uid = `event-day${dnum}-${seq++}-202609@kyoto-osaka-itinerary.local`;
+              const uid = `event-day${dnum}-${String(seq++).padStart(3, '0')}-202609@kyoto-osaka-itinerary.local`;
               const summary = escapeIcs(`[Day ${dnum}] ${item.title}`);
               const desc = escapeIcs(`【時間】${item.time}\n【地點】${item.location}\n【營業/參觀時間】${item.hours || ''}\n【分類】${item.category}\n【備註/攻略】${item.tip || ''}\n【Google Maps】${item.mapUrl || ''}`);
               const location = escapeIcs(item.location || '');

@@ -6,7 +6,7 @@ This test harness covers all features across 7 comprehensive test classes:
   2) TestOverviewAndLogisticsInvariants: Hotels, Ta-Q-Bin luggage forwarding, 7D6N context.
   3) TestRunningStationsAndRoasters: OSHMAN'S Kyoto, RUNNING BASE Osaka Castle, 6 morning routes & roasters.
   4) TestZeroOffalAndDiningInvariants: Yakiniku Hiro exact zero-offal phrase, Mouriya A5 butter/tallow, queue gems.
-  5) TestDailyScheduleCardsAndFilterCategories: 7 days, 63 cards, schema validation, 5 filter pills, 12 tabs.
+  5) TestDailyScheduleCardsAndFilterCategories: 7 days, 66 cards, schema validation, 5 filter pills, 12 tabs.
   6) TestTrendingFindsAndShoppingInvariants: Ohtani Iwaizumi yogurt, Don Quijote Jonetz, Conbini viral gems.
   7) TestHeadlessBrowserDomRendering: Headless Google Chrome execution, Vue 3 mounting, no mustache leaks.
 
@@ -570,7 +570,7 @@ class TestZeroOffalAndDiningInvariants(ItineraryTestBase):
 
 
 class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
-    """5. Checks 7 days, exactly 71 cards, card schema, 5 filter categories, 12 navigation tabs."""
+    """5. Checks 7 days, exactly 66 cards, card schema, 5 filter categories, 12 navigation tabs."""
 
     def test_01_seven_days_schedule_structure(self):
         """Assert days array contains 7 day objects with dayNumber/title and items list."""
@@ -758,8 +758,66 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertIn("END:VCALENDAR", ics_text)
         event_count = ics_text.count("BEGIN:VEVENT")
         self.assertEqual(event_count, 66, f"Expected 66 events in .ics file, found {event_count}")
-        self.assertTrue(any(k in ics_text for k in ["桂離宮", "Katsura"]), "ICS file must contain Katsura Imperial Villa event")
-        self.assertTrue(any(k in ics_text for k in ["貴船神社", "Kifune"]), "ICS file must contain Kifune Shrine event")
+
+        # Deep RFC 5545 event schema and temporal ordering verification
+        events = [e for e in ics_text.split("BEGIN:VEVENT")[1:] if "END:VEVENT" in e]
+        self.assertEqual(len(events), 66, f"Expected 66 valid VEVENT blocks, parsed {len(events)}")
+
+        day_expected_dates = {
+            1: "20260906",
+            2: "20260907",
+            3: "20260908",
+            4: "20260909",
+            5: "20260910",
+            6: "20260911",
+            7: "20260912",
+        }
+
+        uids = set()
+        for idx, ev in enumerate(events):
+            # UID uniqueness
+            m_uid = re.search(r"UID:(.*?)\r?\n", ev)
+            self.assertIsNotNone(m_uid, f"Event #{idx+1} must contain a UID")
+            uid_val = m_uid.group(1).strip()
+            self.assertNotIn(uid_val, uids, f"Duplicate UID detected: '{uid_val}'")
+            uids.add(uid_val)
+
+            # DTSTART & DTEND with Asia/Tokyo timezone
+            m_start = re.search(r"DTSTART;TZID=Asia/Tokyo:(\d{8}T\d{6})", ev)
+            m_end = re.search(r"DTEND;TZID=Asia/Tokyo:(\d{8}T\d{6})", ev)
+            self.assertIsNotNone(m_start, f"Event #{idx+1} ({uid_val}) must define DTSTART;TZID=Asia/Tokyo")
+            self.assertIsNotNone(m_end, f"Event #{idx+1} ({uid_val}) must define DTEND;TZID=Asia/Tokyo")
+
+            start_str = m_start.group(1)
+            end_str = m_end.group(1)
+            self.assertLess(
+                start_str,
+                end_str,
+                f"Event #{idx+1} ({uid_val}) DTSTART ({start_str}) must precede DTEND ({end_str})",
+            )
+
+            # SUMMARY, DESCRIPTION, LOCATION, and STATUS
+            self.assertIn("SUMMARY:", ev, f"Event #{idx+1} ({uid_val}) must contain SUMMARY")
+            self.assertIn("DESCRIPTION:", ev, f"Event #{idx+1} ({uid_val}) must contain DESCRIPTION")
+            self.assertIn("LOCATION:", ev, f"Event #{idx+1} ({uid_val}) must contain LOCATION")
+            self.assertIn("STATUS:CONFIRMED", ev, f"Event #{idx+1} ({uid_val}) must have STATUS:CONFIRMED")
+
+            # Validate date corresponds to day sequence
+            m_day = re.search(r"SUMMARY:\[Day (\d)\]", ev)
+            if m_day:
+                dnum = int(m_day.group(1))
+                expected_date = day_expected_dates[dnum]
+                self.assertTrue(
+                    start_str.startswith(expected_date),
+                    f"Event #{idx+1} [Day {dnum}] date should start with {expected_date} (got {start_str})",
+                )
+
+        # Confirm key requested venues are present in calendar
+        self.assertTrue(any(k in ics_text for k in ["桂離宮", "Katsura"]), "ICS file must contain Katsura Imperial Villa")
+        self.assertTrue(any(k in ics_text for k in ["中村軒", "Nakamura Ken", "麥代餅"]), "ICS file must contain Nakamura Ken")
+        self.assertTrue(any(k in ics_text for k in ["貴船神社", "Kifune"]), "ICS file must contain Kifune Shrine")
+        self.assertTrue(any(k in ics_text for k in ["弘", "Hiro"]), "ICS file must contain Yakiniku Hiro")
+        self.assertTrue(any(k in ics_text for k in ["Mouriya", "神戶牛"]), "ICS file must contain Mouriya Kobe Beef")
 
 
 class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
