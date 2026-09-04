@@ -512,6 +512,15 @@ class TestRunningStationsAndRoasters(ItineraryTestBase):
                 f"Specialty roaster {name} must verify early opening time ({open_time})",
             )
 
+        # 7. Blue Bottle Coffee Kyoto Cafe (Kyoto Nanzen-ji 100-year Machiya Flagship)
+        self.assertEqual(len(data["coffees"]), 7, f"coffees array must contain 7 roasters (found {len(data['coffees'])})")
+        blue_bottle = next((c for c in data["coffees"] if c.get("id") == "coffee-7" or "Blue Bottle" in c.get("title", "")), None)
+        self.assertIsNotNone(blue_bottle, "ITINERARY_DATA['coffees'] must feature Blue Bottle Coffee Kyoto Cafe (id: coffee-7)")
+        self.assertTrue(any(kw in blue_bottle["title"] for kw in ["Blue Bottle", "藍瓶咖啡", "百年町家"]), "Blue Bottle entry title must specify Blue Bottle Kyoto Cafe Machiya flagship")
+        self.assertIn("09:00 - 18:00", blue_bottle["hours"], "Blue Bottle entry must verify 09:00 - 18:00 opening hours")
+        self.assertIn("南禪寺草川町64", blue_bottle["location"], "Blue Bottle entry must state exact location 京都市左京區南禪寺草川町64")
+        self.assertTrue(blue_bottle["mapUrl"].startswith("https://www.google.com/maps"), "Blue Bottle mapUrl must be valid Google Maps URL")
+
 
 class TestZeroOffalAndDiningInvariants(ItineraryTestBase):
     """4. Checks Yakiniku Hiro zero-offal phrase, Mouriya A5 butter/tallow, and queue gems."""
@@ -740,6 +749,28 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(kw in day4_str for kw in ["南禪寺", "Nanzen-ji", "水路閣", "Suirokaku"]), "Day 4 afternoon must include Nanzen-ji & Suirokaku Aqueduct")
         self.assertTrue(any(kw in day4_str for kw in ["藍瓶咖啡", "Blue Bottle", "百年町家"]), "Day 4 afternoon must feature Blue Bottle Coffee Kyoto Cafe (藍瓶咖啡 / Blue Bottle 南禪寺百年町家)")
 
+        bluebottle_card = next((it for it in day4["items"] if any(kw in it.get("title", "") for kw in ["藍瓶", "Blue Bottle"])), None)
+        self.assertIsNotNone(bluebottle_card, "Day 4 items must contain Blue Bottle Kyoto Cafe card")
+        self.assertIn("09:00 - 18:00", bluebottle_card["hours"], "Day 4 Blue Bottle card must confirm 09:00 - 18:00 opening hours")
+        self.assertIn("南禪寺草川町64", bluebottle_card["location"], "Day 4 Blue Bottle card must state exact location 京都市左京區南禪寺草川町64")
+        self.assertTrue(any(kw in bluebottle_card["tip"] for kw in ["町家", "Machiya"]), "Day 4 Blue Bottle card tip must highlight 100-year traditional Kyomachiya")
+        self.assertTrue(any(kw in bluebottle_card["tip"] for kw in ["華夫鬆餅", "Waffle", "鬆餅"]), "Day 4 Blue Bottle card tip must mention Liege waffle")
+        self.assertTrue(bluebottle_card["mapUrl"].startswith("https://www.google.com/maps"), "Day 4 Blue Bottle card must have valid Google Maps URL")
+
+        # Category filter validation on Day 4:
+        # Verify dual-category indexing preserves accessibility under both coffee and culture filters
+        coffee_filtered = [it for it in day4["items"] if it.get("category") == "coffee" or "coffee" in it.get("categories", [])]
+        culture_filtered = [it for it in day4["items"] if it.get("category") == "culture" or "culture" in it.get("categories", [])]
+        run_filtered = [it for it in day4["items"] if it.get("category") == "run" or "run" in it.get("categories", [])]
+        dining_filtered = [it for it in day4["items"] if it.get("category") == "dining" or "dining" in it.get("categories", [])]
+
+        self.assertGreaterEqual(len(coffee_filtered), 2, "Day 4 coffee filter must return both here Kyoto and Blue Bottle")
+        self.assertIn(bluebottle_card, coffee_filtered, "Blue Bottle card must appear when filtering by coffee")
+        self.assertGreaterEqual(len(culture_filtered), 2, "Day 4 culture filter must return cultural attractions")
+        self.assertIn(bluebottle_card, culture_filtered, "Blue Bottle & Nanzen-ji must remain accessible when filtering by culture")
+        self.assertGreaterEqual(len(run_filtered), 2, "Day 4 run filter must return morning run and onsen items")
+        self.assertGreaterEqual(len(dining_filtered), 2, "Day 4 dining filter must return Futaba and Ushimitsu")
+
         # 7. Dinner: Gion Ushimitsu
         self.assertTrue(any(kw in day4_str for kw in ["牛光", "Ushimitsu", "熟成黑毛和牛", "茶漬"]), "Day 4 dinner must feature Gion Ushimitsu roasted Wagyu chazuke bowl")
 
@@ -820,6 +851,14 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(k in ics_text for k in ["弘", "Hiro"]), "ICS file must contain Yakiniku Hiro")
         self.assertTrue(any(k in ics_text for k in ["Mouriya", "神戶牛"]), "ICS file must contain Mouriya Kobe Beef")
         self.assertTrue(any(k in ics_text for k in ["藍瓶", "Blue Bottle"]), "ICS file must contain Blue Bottle Coffee")
+
+        # Specific assertions for Blue Bottle event in .ics
+        bluebottle_ev = next((e for e in events if any(k in e for k in ["藍瓶", "Blue Bottle"])), None)
+        self.assertIsNotNone(bluebottle_ev, "ICS file must contain Blue Bottle Coffee event")
+        self.assertIn("南禪寺草川町64", bluebottle_ev, "Blue Bottle ICS event must include exact address 南禪寺草川町64")
+        self.assertIn("09:00 - 18:00", bluebottle_ev, "Blue Bottle ICS event must mention 09:00 - 18:00 hours")
+        self.assertIn("DTSTART;TZID=Asia/Tokyo:20260909T150000", bluebottle_ev, "Blue Bottle ICS event start time must be 20260909T150000")
+        self.assertIn("DTEND;TZID=Asia/Tokyo:20260909T171500", bluebottle_ev, "Blue Bottle ICS event end time must be 20260909T171500")
 
 
 class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):

@@ -951,6 +951,7 @@
               "location": "京都市左京區南禪寺草川町64 (Blue Bottle Kyoto) ＆ 南禪寺福地町",
               "hours": "藍瓶咖啡 09:00 - 18:00 ｜ 南禪寺境內 08:40 - 17:00",
               "category": "coffee",
+              "categories": ["coffee", "culture"],
               "tip": "【京都最美百年町家旗艦店】自蹴上站漫步至南禪寺參道，必定朝聖這座由百年傳統兩層樓京町家翻修的夢幻藍瓶咖啡 (Blue Bottle Coffee Kyoto Cafe)！中庭碎石小徑、木構桁架與挑高玻璃天井採光極美。點一杯單品手沖咖啡、冷萃黑咖啡或冰美式，搭配現烤華夫鬆餅 (Liege Waffle)，享受町家靜謐古韻。隨後步行 2 分鐘直通南禪寺天下三門與古羅馬紅磚拱形『水路閣』，在青苔、綠蔭與水聲中品嚐上午買的『出町雙葉名代豆餅』，感受深邃禪意與古今交融的極致午後！",
               "mapUrl": "https://www.google.com/maps/search/?api=1&query=Blue+Bottle+Coffee+Kyoto+Cafe"
             },
@@ -1612,7 +1613,7 @@
                 {{ coffee.beansNote }}
               </div>
               <div class="bg-matcha-light p-3.5 rounded-xl border-l-4 border-matcha text-xs text-indigo-deep leading-relaxed">
-                <strong class="text-matcha block mb-1">💡 晨跑搭配與品飲 Tip：</strong>
+                <strong class="text-matcha block mb-1">💡 {{ coffee.id === 'coffee-7' ? '洛東漫步搭配與品飲 Tip：' : '晨跑搭配與品飲 Tip：' }}</strong>
                 {{ coffee.tip }}
               </div>
             </div>
@@ -1861,6 +1862,12 @@
                 <span :class="['px-2.5 py-1 rounded-lg font-medium text-xs flex items-center gap-1 shadow-xs', getCategoryBadgeClass(card.category)]">
                   <i :class="getCategoryIcon(card.category)"></i> {{ getCategoryLabel(card.category) }}
                 </span>
+                <template v-if="card.categories">
+                  <span v-for="secCat in card.categories.filter(c => c !== card.category)" :key="secCat"
+                        :class="['px-2.5 py-1 rounded-lg font-medium text-xs flex items-center gap-1 shadow-xs', getCategoryBadgeClass(secCat)]">
+                    <i :class="getCategoryIcon(secCat)"></i> {{ getCategoryLabel(secCat) }}
+                  </span>
+                </template>
               </div>
               <span class="text-slate-text font-medium text-xs bg-wabi-bg px-2.5 py-1 rounded-md border border-wabi-border/60">
                 ⏰ {{ card.hours }}
@@ -1946,7 +1953,7 @@
           tabs: [
             { id: 'overview', label: '🌟 總覽 Overview' },
             { id: 'runStations', label: '🏃 晨跑名所 & 跑步驛站' },
-            { id: 'coffees', label: '☕ 07:30 冰美式精品地圖' },
+            { id: 'coffees', label: '☕ 07:30 冰美式精品地圖 ＆ 町家旗艦' },
             { id: 'dining', label: '🍜 免預約排隊 & 零內臟美饌' },
             { id: 'trendingFinds', label: '🛍️ 日本爆紅小商品 & 必買清單' },
             { id: 'day1', label: '📅 Day 1 (9/6)' },
@@ -1990,12 +1997,12 @@
         getFilteredItems(items) {
           if (!items) return [];
           if (this.selectedCategory === 'all') return items;
-          return items.filter(item => item.category === this.selectedCategory);
+          return items.filter(item => item.category === this.selectedCategory || (item.categories && item.categories.includes(this.selectedCategory)));
         },
         getFilterCount(categoryId) {
           const items = this.currentDayObj.items || [];
           if (categoryId === 'all') return items.length;
-          return items.filter(item => item.category === categoryId).length;
+          return items.filter(item => item.category === categoryId || (item.categories && item.categories.includes(categoryId))).length;
         },
         getFilteredTrending(items) {
           if (!items) return [];
