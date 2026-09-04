@@ -416,10 +416,10 @@ UID:event-day4-037-202609@kyoto-osaka-itinerary.local
 DTSTAMP:20260904T000000Z
 DTSTART;TZID=Asia/Tokyo:20260909T150000
 DTEND;TZID=Asia/Tokyo:20260909T171500
-SUMMARY:[Day 4] 南禪寺 三門登頂 & 古羅馬紅磚水路閣漫步
-DESCRIPTION:【時間】15:00 - 17:15\n【地點】京都市左京區南禪寺福地町\n【營業/參觀時間】08:40 - 17:00\n【分類】culture\n【備註/攻略】漫步天下三門，登上樓閣眺望古都綠樹；走進後方古羅馬風格的紅磚拱形『水路閣』，在青苔、綠蔭與水聲中品嚐上午買的『出町雙葉名代豆餅』，感受深邃日式禪意與和菓子甜鹹交織的曼妙滋味。\n【Google Maps】https://www.google.com/maps/search/?api=1&query=Nanzen-ji
-LOCATION:京都市左京區南禪寺福地町
-URL:https://www.google.com/maps/search/?api=1&query=Nanzen-ji
+SUMMARY:[Day 4] ☕ 藍瓶咖啡 京都旗艦店 (南禪寺百年町家) ＆ ⛩️ 南禪寺水路閣漫步
+DESCRIPTION:【時間】15:00 - 17:15\n【地點】京都市左京區南禪寺草川町64 (Blue Bottle Kyoto) ＆ 南禪寺福地町\n【營業/參觀時間】藍瓶咖啡 09:00 - 18:00 ｜ 南禪寺境內 08:40 - 17:00\n【分類】coffee\n【備註/攻略】【京都最美百年町家旗艦店】自蹴上站漫步至南禪寺參道，必定朝聖這座由百年傳統兩層樓京町家翻修的夢幻藍瓶咖啡 (Blue Bottle Coffee Kyoto Cafe)！中庭碎石小徑、木構桁架與挑高玻璃天井採光極美。點一杯單品手沖咖啡、冷萃黑咖啡或冰美式，搭配現烤華夫鬆餅 (Liege Waffle)，享受町家靜謐古韻。隨後步行 2 分鐘直通南禪寺天下三門與古羅馬紅磚拱形『水路閣』，在青苔、綠蔭與水聲中品嚐上午買的『出町雙葉名代豆餅』，感受深邃禪意與古今交融的極致午後！\n【Google Maps】https://www.google.com/maps/search/?api=1&query=Blue+Bottle+Coffee+Kyoto+Cafe
+LOCATION:京都市左京區南禪寺草川町64 (Blue Bottle Kyoto) ＆ 南禪寺福地町
+URL:https://www.google.com/maps/search/?api=1&query=Blue+Bottle+Coffee+Kyoto+Cafe
 STATUS:CONFIRMED
 END:VEVENT
 BEGIN:VEVENT

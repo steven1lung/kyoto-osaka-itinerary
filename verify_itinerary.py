@@ -736,8 +736,9 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         # 5. Kawadoko tea / Wagyu sansai lunch
         self.assertTrue(any(kw in day4_str for kw in ["川床", "Kawadoko"]), "Day 4 must feature Kifune Kawadoko dining/tea")
 
-        # 6. Afternoon Nanzen-ji & Suirokaku Aqueduct
+        # 6. Afternoon Blue Bottle Coffee Kyoto Cafe & Nanzen-ji Suirokaku Aqueduct
         self.assertTrue(any(kw in day4_str for kw in ["南禪寺", "Nanzen-ji", "水路閣", "Suirokaku"]), "Day 4 afternoon must include Nanzen-ji & Suirokaku Aqueduct")
+        self.assertTrue(any(kw in day4_str for kw in ["藍瓶咖啡", "Blue Bottle", "百年町家"]), "Day 4 afternoon must feature Blue Bottle Coffee Kyoto Cafe (藍瓶咖啡 / Blue Bottle 南禪寺百年町家)")
 
         # 7. Dinner: Gion Ushimitsu
         self.assertTrue(any(kw in day4_str for kw in ["牛光", "Ushimitsu", "熟成黑毛和牛", "茶漬"]), "Day 4 dinner must feature Gion Ushimitsu roasted Wagyu chazuke bowl")
@@ -818,6 +819,7 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(k in ics_text for k in ["貴船神社", "Kifune"]), "ICS file must contain Kifune Shrine")
         self.assertTrue(any(k in ics_text for k in ["弘", "Hiro"]), "ICS file must contain Yakiniku Hiro")
         self.assertTrue(any(k in ics_text for k in ["Mouriya", "神戶牛"]), "ICS file must contain Mouriya Kobe Beef")
+        self.assertTrue(any(k in ics_text for k in ["藍瓶", "Blue Bottle"]), "ICS file must contain Blue Bottle Coffee")
 
 
 class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
