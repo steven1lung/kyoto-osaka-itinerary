@@ -696,21 +696,21 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
                 f"index.html must define navigation tab view for '{tab_id}' ({keywords})",
             )
 
-    def test_06_day4_fushimi_inari_nanzenji_and_day1_kifune_schedule(self):
-        """Assert Day 1 features Kifune Shrine driving trip, and Day 4 features Fushimi Inari, Demachi Futaba, Nanzen-ji, and Gion Ushimitsu."""
+    def test_06_day1_katsura_rikyu_nakamura_ken_and_day4_kifune_schedule(self):
+        """Assert Day 1 features Katsura Imperial Villa & Nakamura Ken driving trip, and Day 4 features Kifune Shrine, Eizan Kirara train, Demachi Futaba, Nanzen-ji, and Gion Ushimitsu."""
         data = self.get_itinerary_data()
 
-        # Verify Day 1: Kifune Shrine by car
+        # Verify Day 1: Katsura Imperial Villa, Nakamura Ken by car
         day1 = next((d for d in data["days"] if d.get("id") == "day1" or d.get("dayNumber") == 1), None)
         self.assertIsNotNone(day1, "Day 1 schedule object must exist in ITINERARY_DATA['days']")
         self.assertEqual(len(day1["items"]), 9, f"Day 1 must contain exactly 9 cards (found {len(day1['items'])})")
         day1_str = json.dumps(day1, ensure_ascii=False)
-        self.assertTrue(any(kw in day1_str for kw in ["貴船神社", "Kifune Shrine", "Kifune"]), "Day 1 must feature Kifune Shrine")
-        self.assertTrue(any(kw in day1_str for kw in ["自駕", "朋友開車", "開車", "後車廂"]), "Day 1 must feature friend driving")
-        self.assertTrue(any(kw in day1_str for kw in ["水占卜", "水占い", "mizu-uranai"]), "Day 1 must feature water divination")
-        self.assertTrue(any(kw in day1_str for kw in ["川床", "Kawadoko"]), "Day 1 must feature Kifune Kawadoko tea or valley air")
+        self.assertTrue(any(kw in day1_str for kw in ["桂離宮", "Katsura Imperial Villa", "Katsura Rikyu"]), "Day 1 must feature Katsura Imperial Villa")
+        self.assertTrue(any(kw in day1_str for kw in ["中村軒", "Nakamura Ken", "麥代餅", "麦代餅"]), "Day 1 must feature historic Nakamura Ken Mugite-mochi")
+        self.assertTrue(any(kw in day1_str for kw in ["自駕", "朋友開車", "開車", "後車廂"]), "Day 1 must feature friend driving with luggage in trunk")
+        self.assertTrue(any(kw in day1_str for kw in ["桂川", "宮內廳", "停車場"]), "Day 1 must mention Katsura River, Imperial Household Agency (宮內廳), or parking convenience")
 
-        # Verify Day 4: Relaxed Fushimi Inari, Demachi Futaba, Nanzen-ji, Ushimitsu
+        # Verify Day 4: Kifune Shrine, Eizan Railway Kirara, Demachi Futaba, Nanzen-ji, Ushimitsu
         day4 = next((d for d in data["days"] if d.get("id") == "day4" or d.get("dayNumber") == 4), None)
         self.assertIsNotNone(day4, "Day 4 schedule object must exist in ITINERARY_DATA['days']")
         self.assertEqual(len(day4["items"]), 9, f"Day 4 must contain exactly 9 cards (found {len(day4['items'])})")
@@ -725,17 +725,41 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(kw in day4_str for kw in ["here Kyoto", "here", "三條本店"]), "Day 4 must feature here Kyoto Sanjo Main Store")
         self.assertIn("08:00", day4_str, "here Kyoto entry must confirm 08:00 AM opening time")
 
-        # 3. Fushimi Inari Taisha (relaxed morning)
-        self.assertTrue(any(kw in day4_str for kw in ["伏見稻荷大社", "千本鳥居", "Fushimi Inari"]), "Day 4 must feature Fushimi Inari Taisha")
-
-        # 4. Demachi Futaba Mame Daifuku quick stop
+        # 3. Demachi Futaba Mame Daifuku & Eizan Railway Kirara train
         self.assertTrue(any(kw in day4_str for kw in ["出町ふたば", "出町雙葉", "豆餅", "Futaba"]), "Day 4 must feature Demachi Futaba Mame Daifuku")
+        self.assertTrue(any(kw in day4_str for kw in ["叡山電車", "きらら", "Kirara"]), "Day 4 must feature Eizan Railway Kirara scenic train")
 
-        # 5. Afternoon Nanzen-ji & Suirokaku Aqueduct
+        # 4. Kifune Shrine red lantern stone stairs & water divination
+        self.assertTrue(any(kw in day4_str for kw in ["貴船神社", "Kifune Shrine", "Kifune"]), "Day 4 must feature Kifune Shrine")
+        self.assertTrue(any(kw in day4_str for kw in ["水占卜", "水占い", "mizu-uranai"]), "Day 4 must feature water divination (水占卜)")
+
+        # 5. Kawadoko tea / Wagyu sansai lunch
+        self.assertTrue(any(kw in day4_str for kw in ["川床", "Kawadoko"]), "Day 4 must feature Kifune Kawadoko dining/tea")
+
+        # 6. Afternoon Nanzen-ji & Suirokaku Aqueduct
         self.assertTrue(any(kw in day4_str for kw in ["南禪寺", "Nanzen-ji", "水路閣", "Suirokaku"]), "Day 4 afternoon must include Nanzen-ji & Suirokaku Aqueduct")
 
-        # 6. Dinner: Gion Ushimitsu
+        # 7. Dinner: Gion Ushimitsu
         self.assertTrue(any(kw in day4_str for kw in ["牛光", "Ushimitsu", "熟成黑毛和牛", "茶漬"]), "Day 4 dinner must feature Gion Ushimitsu roasted Wagyu chazuke bowl")
+
+    def test_07_calendar_export_ics_file_and_ui_button(self):
+        """Assert kyoto_osaka_7d6n_itinerary.ics exists, contains all 66 events, and index.html provides export button."""
+        html = self.get_html_content()
+        self.assertTrue(
+            any(btn in html for btn in ["匯出行事曆", "exportIcsCalendar", "kyoto_osaka_7d6n_itinerary.ics"]),
+            "index.html must provide an interactive Export to Calendar (.ics) button",
+        )
+        ics_path = self.get_index_path().parent / "kyoto_osaka_7d6n_itinerary.ics"
+        self.assertTrue(ics_path.exists(), f"kyoto_osaka_7d6n_itinerary.ics must exist at {ics_path}")
+        ics_text = ics_path.read_text(encoding="utf-8")
+        self.assertIn("BEGIN:VCALENDAR", ics_text)
+        self.assertIn("VERSION:2.0", ics_text)
+        self.assertIn("TZID:Asia/Tokyo", ics_text)
+        self.assertIn("END:VCALENDAR", ics_text)
+        event_count = ics_text.count("BEGIN:VEVENT")
+        self.assertEqual(event_count, 66, f"Expected 66 events in .ics file, found {event_count}")
+        self.assertTrue(any(k in ics_text for k in ["桂離宮", "Katsura"]), "ICS file must contain Katsura Imperial Villa event")
+        self.assertTrue(any(k in ics_text for k in ["貴船神社", "Kifune"]), "ICS file must contain Kifune Shrine event")
 
 
 class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
