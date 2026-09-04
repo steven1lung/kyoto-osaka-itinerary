@@ -586,8 +586,8 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
             self.assertIsNotNone(day_obj["items"], f"Day {idx} 'items' must not be null/None")
             self.assertIsInstance(day_obj["items"], list, f"Day {idx} 'items' must be a list")
 
-    def test_02_total_card_count_seventy_one(self):
-        """Assert exactly 71 time-slotted cards across the 7 daily schedules."""
+    def test_02_total_card_count_sixty_six(self):
+        """Assert exactly 66 time-slotted cards across the 7 daily schedules."""
         data = self.get_itinerary_data()
         self.assertIn("days", data, "ITINERARY_DATA must contain 'days' key")
         days = data["days"]
@@ -601,8 +601,8 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         total_cards = sum(len(d["items"]) for d in days)
         self.assertEqual(
             total_cards,
-            71,
-            f"Expected exactly 71 time-slotted cards across Days 1-7, but found {total_cards}",
+            66,
+            f"Expected exactly 66 time-slotted cards across Days 1-7, but found {total_cards}",
         )
 
     def test_03_card_schema_and_google_maps_urls(self):
@@ -696,12 +696,24 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
                 f"index.html must define navigation tab view for '{tab_id}' ({keywords})",
             )
 
-    def test_06_day4_kifune_shrine_and_eizan_railway_schedule(self):
-        """Assert Day 4 features Kifune Shrine, Eizan Railway Kirara, Kawadoko lunch, Nanzen-ji, and Gion Ushimitsu."""
+    def test_06_day4_fushimi_inari_nanzenji_and_day1_kifune_schedule(self):
+        """Assert Day 1 features Kifune Shrine driving trip, and Day 4 features Fushimi Inari, Demachi Futaba, Nanzen-ji, and Gion Ushimitsu."""
         data = self.get_itinerary_data()
+
+        # Verify Day 1: Kifune Shrine by car
+        day1 = next((d for d in data["days"] if d.get("id") == "day1" or d.get("dayNumber") == 1), None)
+        self.assertIsNotNone(day1, "Day 1 schedule object must exist in ITINERARY_DATA['days']")
+        self.assertEqual(len(day1["items"]), 9, f"Day 1 must contain exactly 9 cards (found {len(day1['items'])})")
+        day1_str = json.dumps(day1, ensure_ascii=False)
+        self.assertTrue(any(kw in day1_str for kw in ["貴船神社", "Kifune Shrine", "Kifune"]), "Day 1 must feature Kifune Shrine")
+        self.assertTrue(any(kw in day1_str for kw in ["自駕", "朋友開車", "開車", "後車廂"]), "Day 1 must feature friend driving")
+        self.assertTrue(any(kw in day1_str for kw in ["水占卜", "水占い", "mizu-uranai"]), "Day 1 must feature water divination")
+        self.assertTrue(any(kw in day1_str for kw in ["川床", "Kawadoko"]), "Day 1 must feature Kifune Kawadoko tea or valley air")
+
+        # Verify Day 4: Relaxed Fushimi Inari, Demachi Futaba, Nanzen-ji, Ushimitsu
         day4 = next((d for d in data["days"] if d.get("id") == "day4" or d.get("dayNumber") == 4), None)
         self.assertIsNotNone(day4, "Day 4 schedule object must exist in ITINERARY_DATA['days']")
-        self.assertEqual(len(day4["items"]), 11, f"Day 4 must contain exactly 11 cards (found {len(day4['items'])})")
+        self.assertEqual(len(day4["items"]), 9, f"Day 4 must contain exactly 9 cards (found {len(day4['items'])})")
 
         day4_str = json.dumps(day4, ensure_ascii=False)
 
@@ -713,24 +725,11 @@ class TestDailyScheduleCardsAndFilterCategories(ItineraryTestBase):
         self.assertTrue(any(kw in day4_str for kw in ["here Kyoto", "here", "三條本店"]), "Day 4 must feature here Kyoto Sanjo Main Store")
         self.assertIn("08:00", day4_str, "here Kyoto entry must confirm 08:00 AM opening time")
 
-        # 3. Demachi Futaba Mame Daifuku & Scenic Transit & Kifune Shrine
-        self.assertTrue(any(kw in day4_str for kw in ["出町ふたば", "出町雙葉", "豆餅", "Futaba"]), "Day 4 must feature Demachi Futaba Mame Daifuku quick stop")
-        self.assertTrue(any(kw in day4_str for kw in ["叡山電鐵", "Eizan", "きらら", "Kirara"]), "Day 4 must feature Eizan Railway 'Kirara' scenic train")
-        self.assertTrue(any(kw in day4_str for kw in ["貴船神社", "Kifune Shrine", "Kifune"]), "Day 4 must feature Kifune Shrine")
-        self.assertTrue(any(kw in day4_str for kw in ["水占卜", "水占い", "mizu-uranai", "紅燈籠", "朱紅鳥居"]), "Day 4 Kifune Shrine card must mention water fortune divination or red lantern stone staircase")
-        
-        # Verify Day 4 route continuity: Demachi Futaba is item 4 (index 3) and Kirara train is item 5 (index 4)
-        card_futaba = day4["items"][3]
-        card_kirara = day4["items"][4]
-        self.assertTrue(any(kw in card_futaba["title"] for kw in ["出町ふたば", "出町雙葉", "豆餅"]), "Day 4 Card 4 must be Demachi Futaba")
-        self.assertTrue(any(kw in card_kirara["title"] for kw in ["叡山電鐵", "きらら", "Kirara"]), "Day 4 Card 5 must be Kirara scenic train")
-        self.assertIn("出町柳", card_kirara["location"], "Day 4 Kirara train must originate from Demachiyanagi Station")
-        self.assertNotIn("祇園四條", card_kirara["location"], "Day 4 Kirara train must not erroneously start from Gion-Shijo after visiting Demachiyanagi")
+        # 3. Fushimi Inari Taisha (relaxed morning)
+        self.assertTrue(any(kw in day4_str for kw in ["伏見稻荷大社", "千本鳥居", "Fushimi Inari"]), "Day 4 must feature Fushimi Inari Taisha")
 
-        # 4. Kawadoko Lunch with Zero Animal Offal
-        self.assertTrue(any(kw in day4_str for kw in ["川床", "Kawadoko", "川床料理", "御膳"]), "Day 4 lunch must feature Kifune Kawadoko dining")
-        self.assertTrue(any(kw in day4_str for kw in ["山菜", "和牛", "sansai", "Wagyu"]), "Day 4 Kawadoko lunch must offer sansai / Wagyu set meal")
-        self.assertTrue(any(kw in day4_str for kw in ["零內臟", "無內臟", "offal", "不吃內臟"]), "Day 4 Kawadoko lunch must enforce zero animal offal policy")
+        # 4. Demachi Futaba Mame Daifuku quick stop
+        self.assertTrue(any(kw in day4_str for kw in ["出町ふたば", "出町雙葉", "豆餅", "Futaba"]), "Day 4 must feature Demachi Futaba Mame Daifuku")
 
         # 5. Afternoon Nanzen-ji & Suirokaku Aqueduct
         self.assertTrue(any(kw in day4_str for kw in ["南禪寺", "Nanzen-ji", "水路閣", "Suirokaku"]), "Day 4 afternoon must include Nanzen-ji & Suirokaku Aqueduct")
@@ -920,15 +919,15 @@ class TestTrendingFindsAndShoppingInvariants(ItineraryTestBase):
             "Daily schedule must weave 551 HORAI steamed pork buns upon Namba arrival",
         )
 
-        # 8. Day 5 dinner and Donki pacing
+        # 8. Day 5 dinner and chill pacing
         day5 = next((d for d in data["days"] if d.get("id") == "day5" or d.get("dayNumber") == 5), None)
         self.assertIsNotNone(day5, "Day 5 schedule must exist")
         ajinoya_card = next((it for it in day5["items"] if "味乃家" in it.get("title", "")), None)
         self.assertIsNotNone(ajinoya_card, "Day 5 must feature Ajinoya okonomiyaki dinner")
-        self.assertIn("19:45 - 21:00", ajinoya_card["time"], "Day 5 Ajinoya dinner must have comfortable 75-minute window (19:45 - 21:00)")
-        donki_card = next((it for it in day5["items"] if "道頓堀" in it.get("title", "") and "唐吉" in it.get("title", "")), None)
-        self.assertIsNotNone(donki_card, "Day 5 must feature Don Quijote Dotonbori")
-        self.assertIn("21:00 - 22:00", donki_card["time"], "Day 5 Donki Dotonbori must be scheduled 21:00 - 22:00 before onsen")
+        self.assertTrue("19:30 - 21:00" in ajinoya_card["time"] or "19:45 - 21:00" in ajinoya_card["time"], "Day 5 Ajinoya dinner must have comfortable window")
+        onsen_card = next((it for it in day5["items"] if "花風之湯" in it.get("title", "") or "溫泉" in it.get("title", "")), None)
+        self.assertIsNotNone(onsen_card, "Day 5 must feature evening onsen and sauna recovery")
+        self.assertIn("21:00 - 23:00", onsen_card["time"], "Day 5 onsen & sauna must be scheduled 21:00 - 23:00 for deep recovery")
 
 
 class TestHeadlessBrowserDomRendering(ItineraryTestBase):
